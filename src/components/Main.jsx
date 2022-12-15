@@ -1,30 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InputComp from "./InputComp";
 import LangSelector from "./LangSelector";
+import FileUploadPage from "./FileUploadPage"
+
+
 
 export default function Main() {
+  const [selectedFile, setSelectedFile] = useState();
+
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [ln, setLanguage] = useState("en");
 
-  useEffect(() => {
-    fetch("bp-ln.json", {
+    function fetchFile(){
+    fetch(`${selectedFile}.json`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
     })
-      .then((res) => {
-        return res.json();
-      })
-      .then(async (res) => {
-        console.log(res);
-        await setData(res);
-        setLoaded(true);
-      });
-  }, []);
-
- 
+    .then((res) => {
+      return res.json();
+    })
+    .then(async (res) => {
+      console.log(res);
+      await setData(res);
+      setLoaded(true);
+    });
+  }
 
   return (
     <>
@@ -36,7 +39,11 @@ export default function Main() {
               <h3 style={{ display: "inline" }}>({data.tree.rmType})</h3>
             </div>
             <div className="col-sm-2">
-              <LangSelector ln={ln} setLanguage = {setLanguage} langs = {data.languages}/>
+              <LangSelector
+                ln={ln}
+                setLanguage={setLanguage}
+                langs={data.languages}
+              />
             </div>
           </div>
 
@@ -73,12 +80,14 @@ export default function Main() {
                 </div>
               );
             } else {
-              return <InputComp key={child.id} ln = {ln} child={child} />;
+              return <InputComp key={child.id} ln={ln} child={child} />;
             }
           })}
         </div>
       ) : (
-        <></>
+        <>
+          <FileUploadPage setSelectedFile = {setSelectedFile} fetchFile={fetchFile} />
+        </>
       )}
     </>
   );
