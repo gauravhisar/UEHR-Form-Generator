@@ -1,28 +1,81 @@
 
-import React from "react";
-export default function FileUploadPage({setSelectedFile, fetchFile}) {
-  
-    async function fileChangeHandler(e) {
-      console.log(e.target.value);
-      await setSelectedFile(e.target.value);
+import React, {useState} from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom"
+import LangSelector from "./Selector";
+
+export default function FileUploadPage({archetype, setArchetype, archetypeLoaded, setArchetypeLoaded}) {
+    const [selectedFile, setSelectedFile] = useState("");
+    const [availableFiles, setAvailableFiles] = useState([]);
+    const navigate = useNavigate()
+
+    
+
+    useEffect(()=>{
+        function fetchAvailableFiles(){
+            fetch(`files.json`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+            })
+            .then((res) => {
+                return res.json();
+            })
+            .then(res => {
+                setAvailableFiles(res.files);
+            })
+        }
+        fetchAvailableFiles();
+    }, [])
+
+    function fetchFile(){
+        fetch(`${selectedFile}.json`, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        })
+        .then((res) => {
+          return res.json();
+        })
+        .then(async (res) => {
+          console.log(res);
+          await setArchetype(res);
+          setArchetypeLoaded(true);
+        })
+        .catch((e) => {
+          alert("File does not exist!");
+        });
+      }
+
+    function fileChangeHandler(e) {
+      setSelectedFile(e.target.value);
     }
-  
-    function handleFileSubmission() {
-        fetchFile();
+
+    async function handleFileSubmission() {
+        await fetchFile();
+        if (archetypeLoaded){
+            navigate(`/archetype`)
+        }
+    }
+
+    function handleKeyDown(e){
+        if (e.key === "Enter"){
+            handleFileSubmission();
+        }
     }
   
     return (
       <div className="col-sm-6">
-        <div className="input-group m-3">
+        <div className="input-group m-3" onKeyDown={handleKeyDown}>
         <span className="input-group-text" id="basic-addon1">Archetype File</span>
-          <input
-            type="text"
-            aria-label="Filename"
-            className="form-control"
-            id="basic-url"
-            aria-describedby="basic-addon3"
-            onChange = {fileChangeHandler}
-          />
+         
+          <LangSelector
+                ln={selectedFile}
+                setLanguage={setSelectedFile}
+                langs={availableFiles}
+              />
           <button
             className="btn btn-secondary"
             type="button"

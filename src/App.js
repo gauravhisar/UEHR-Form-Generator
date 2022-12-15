@@ -1,24 +1,26 @@
-// import logo from './logo.svg';
 import './App.css';
 import Main from "./components/Main"
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import FileUploadPage from './components/FileUploadPage';
+import {useState} from 'react';
+
 
 function App() {
+  const [archetype, setArchetype] = useState([]);
+  const [archetypeLoaded, setArchetypeLoaded] = useState(false);
   return (
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    <Main/>
+    <>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<FileUploadPage key = "FileUploadPage"  archetypeLoaded = {archetypeLoaded} setArchetypeLoaded = {setArchetypeLoaded} archetype={archetype} setArchetype = {setArchetype}/>}></Route>
+        <Route exact path="/archetype" element={<Main key = "Archetype" archetypeLoaded = {archetypeLoaded} setArchetypeLoaded = {setArchetypeLoaded} archetype={archetype} setArchetype = {setArchetype}/>}></Route>
+      </Routes>
+    </Router>
+    </>
   );
 }
 
