@@ -1,6 +1,9 @@
 {
     "files": [
         "Blood Pressure", 
-        "ECG"
+        "ECG", 
+        "Pulse Oximetry",
+        "Respiration",
+        "Spirometry"
     ]
 }
