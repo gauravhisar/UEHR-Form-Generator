@@ -8,6 +8,7 @@ export default function FileUploadPage({
   archetypeLoaded,
   setArchetypeLoaded,
 }) {
+
   const [allArchetypes, setAllArchetypes] = useState({});
   const [availableRmTypes, setAvailableRmTypes] = useState([]);
   const [availableArchetypes, setAvailableArchetypes] = useState([]);
@@ -16,7 +17,7 @@ export default function FileUploadPage({
   const navigate = useNavigate();
 
   useEffect(() => {
-    function fetchAvailableFiles() {
+    function fetchAvailableArchetypes() {
       fetch(`Archetypes.json`, {
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +35,7 @@ export default function FileUploadPage({
           setAllArchetypes({ ...Archetypes });
         });
     }
-    fetchAvailableFiles();
+    fetchAvailableArchetypes();
   }, []);
 
   function fetchFile() {

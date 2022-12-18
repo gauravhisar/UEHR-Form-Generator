@@ -1,65 +1,106 @@
 import React, { useState } from "react";
+import Selector from "./Selector";
 
-// function coded_text({ln, input}){
-//   const [value, setValue] = useState([]);
-
-//   function onValueChangeHandler(){
-
-//   }
-
-//   return (
-//     <select
-//       className="form-select"
-//       value={value}
-//       onChange={onValueChangeHandler}
-//       aria-label="Default select example"
-//     >
-//       {langs.map((lang) => {
-//         return (
-//           <option key={lang} value={lang}>
-//             {lang}
-//           </option>
-//         );
-//       })}
-//     </select>
-//   );
-// }
-
-function Plaintext({ input }) {
+function Plaintext({ index, input, value, setValue }) {
+  function onValueChangeHandler(e) {
+    setValue((prev) => {
+      let a = [...prev];
+      a[index] = e.target.value;
+      return a;
+    });
+  }
   return (
     <input
       type="text"
       className="form-control"
       aria-label="Sizing example input"
       aria-describedby="inputGroup-sizing-sm"
+      value={value[index]}
+      onChange={onValueChangeHandler}
+    />
+  );
+}
+function CodedText({ index, ln, input, value, setValue }) {
+  function onValueChangeHandler(e) {
+    setValue((prev) => {
+      let a = [...prev];
+      a[index] = e.target.value;
+      return a;
+    });
+  }
+  let options = input.list.map((ele) =>
+    ele.localizedLabels ? ele.localizedLabels[ln] : ele.label
+  );
+  return (
+    <Selector
+      value={value[index]}
+      onValueChangeHandler={onValueChangeHandler}
+      options={options}
     />
   );
 }
 
-function SubInput({index, ln, input, value, setValue }) {
-  // if (input.type === "CODED_TEXT"){
-  //   <coded_text ln = {ln} input = {input}/>
-  // }
-  // else if (input.type === "TEXT"){
-  //   <text ln/>
-
-  // }
+function SubInput({ index, ln, input, value, setValue }) {
+  if (input.type === "CODED_TEXT") {
+    return (
+      <CodedText
+        key={index}
+        index={index}
+        input={input}
+        ln={ln}
+        value={value}
+        setValue={setValue}
+      />
+    );
+  } else if (input.type === "TEXT") {
+    return (
+      <Plaintext
+        key={index}
+        index={index}
+        input={input}
+        ln={ln}
+        value={value}
+        setValue={setValue}
+      />
+    );
+  }
   return (
-    <>
     <Plaintext
       key={index}
+      index={index}
       input={input}
       ln={ln}
       value={value}
       setValue={setValue}
     />
-    </>
   );
 }
 export default function InputComp({ child, ln }) {
-  const [value, setValue] = useState({});
-
-  if (["EVENT", "INTERNAL_EVENT", "CLUSTER", "ELEMENT", "DV_INTERVAL", "ISM_TRANSITION"].indexOf(child.rmType) >= 0) {
+  const [value, setValue] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
+  if (
+    [
+      "EVENT",
+      "INTERNAL_EVENT",
+      "CLUSTER",
+      "ELEMENT",
+      "DV_INTERVAL",
+      "ISM_TRANSITION",
+    ].indexOf(child.rmType) >= 0
+  ) {
     return (
       <>
         <div key={child.id} className="row py-2">
@@ -69,7 +110,9 @@ export default function InputComp({ child, ln }) {
                 <h5 className="card-title pb-2">
                   {child.localizedNames && child.localizedNames[ln]
                     ? child.localizedNames[ln]
-                    : (child.name ? child.name : child.id)}
+                    : child.name
+                    ? child.name
+                    : child.id}
                 </h5>
                 <div className="card-text">
                   <ul className="list-group list-group-flush">
@@ -92,7 +135,9 @@ export default function InputComp({ child, ln }) {
         <span className="input-group-text" id="inputGroup-sizing-sm">
           {child.localizedNames && child.localizedNames[ln]
             ? child.localizedNames[ln]
-            : (child.name ? child.name : child.id)}
+            : child.name
+            ? child.name
+            : child.id}
         </span>
         {child.inputs ? (
           child.inputs.map((input, index) => {
@@ -109,7 +154,7 @@ export default function InputComp({ child, ln }) {
           })
         ) : (
           <>
-            <Plaintext ln={ln} />
+            <Plaintext ln={ln} index={0} value={value} setValue={setValue} />
           </>
         )}
       </div>
