@@ -18,7 +18,7 @@ export default function Main({archetype, setArchetype, archetypeLoaded, setArche
   return (
     <>
         <div className="px-2">
-          <div className="row py-2">
+          <div className="row py-2 border-bottom border-secondary rounded-5 rounded-top bg-light">
             <div className="col-sm-10">
               <h2 style={{ display: "inline" }}>{archetype.tree.name}</h2>
               <h3 style={{ display: "inline" }}>({archetype.tree.rmType})</h3>

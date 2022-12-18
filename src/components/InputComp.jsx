@@ -41,6 +41,7 @@ function CodedText({ index, ln, input, value, setValue }) {
 }
 
 function SubInput({ index, ln, input, value, setValue }) {
+  console.log(input.type)
   if (input.type === "CODED_TEXT") {
     return (
       <CodedText
@@ -99,6 +100,7 @@ export default function InputComp({ child, ln }) {
       "ELEMENT",
       "DV_INTERVAL",
       "ISM_TRANSITION",
+      "ACTIVITY"
     ].indexOf(child.rmType) >= 0
   ) {
     return (
