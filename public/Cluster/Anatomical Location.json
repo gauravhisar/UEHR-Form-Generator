@@ -1,0 +1,855 @@
+{
+  "templateId" : "Anatomical Location",
+  "semVer" : "0.1.0",
+  "version" : "2.3",
+  "defaultLanguage" : "en",
+  "languages" : [ "ar-sy", "sl", "nb", "pt-br", "de", "nl", "sv", "en" ],
+  "tree" : {
+    "id" : "anatomical_location",
+    "name" : "Anatomical Location",
+    "localizedName" : "Anatomical Location",
+    "rmType" : "CLUSTER",
+    "nodeId" : "openEHR-EHR-CLUSTER.anatomical_location.v1",
+    "min" : 1,
+    "max" : 1,
+    "localizedNames" : {
+      "ar-sy" : "Anatomical Location",
+      "sl" : "Anatomical Location",
+      "nb" : "Anatomical Location",
+      "pt-br" : "Anatomical Location",
+      "de" : "Anatomical Location",
+      "nl" : "Anatomical Location",
+      "sv" : "Anatomical Location",
+      "en" : "Anatomical Location"
+    },
+    "localizedDescriptions" : {
+      "ar-sy" : "*A physical site on or within the human body.(en)",
+      "sl" : "*A physical site on or within the human body.(en)",
+      "nb" : "Et fysisk sted på eller inne i menneskekroppen.",
+      "pt-br" : "Identificação de um local físico dentro ou no corpo humano.",
+      "de" : "Eine physische Stelle am oder innerhalb des menschlichen Körpers.",
+      "nl" : "Een fysieke regio op of in het menselijk lichaam.",
+      "sv" : "Ett fysiskt ställe på eller i människokroppen.",
+      "en" : "A physical site on or within the human body."
+    },
+    "aqlPath" : "",
+    "children" : [ {
+      "id" : "body_site_name",
+      "name" : "Body site name",
+      "localizedName" : "Body site name",
+      "rmType" : "DV_TEXT",
+      "nodeId" : "at0001",
+      "min" : 1,
+      "max" : 1,
+      "localizedNames" : {
+        "ar-sy" : "*Body site name(en)",
+        "sl" : "*Body site name(en)",
+        "nb" : "Navn på kroppssted",
+        "pt-br" : "*Body site name(en)",
+        "de" : "Name der Körperstelle",
+        "nl" : "Lichaamslocatie",
+        "sv" : "Namn på kroppsställe",
+        "en" : "Body site name"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*Identification of a single physical site either on, or within, the human body.(en)",
+        "sl" : "*Identification of a single physical site either on, or within, the human body.(en)",
+        "nb" : "Navngiving av et enkelt fysisk sted enten på eller i menneskekroppen.",
+        "pt-br" : "*Identification of a single physical site either on, or within, the human body.(en)",
+        "de" : "Identifikation einer einzelnen physischen Stelle entweder am oder innerhalb des menschlichen Körpers.",
+        "nl" : "Identificatie van een enkele fysieke regio op of in het menselijk lichaam.",
+        "sv" : "Identifiering av enskilt fysiskt ställe på eller i människokroppen.",
+        "en" : "Identification of a single physical site either on, or within, the human body."
+      },
+      "annotations" : {
+        "comment" : "This data element is the only mandated data point in this archetype and should be used as the primary data point to record an anatomical location with a commonly used name. It is strongly recommended that 'Body site name' be recorded as specifically as is anatomically possible. For example: record 'upper eyelid' rather than recording 'eyelid' with 'upper' as a qualifier; 'fifth rib' rather than 'rib' with a numeric qualifier. Use the other data elements for laterality, aspect, region and anatomical line to provide more detail.\r\n\r\nThis data element should be coded with a terminology capable of triggering decision support, where possible - an appropriate termset for use here could comprise individual concepts or a list of precoordinated terms. Free text should be used only if there is no appropriate terminology available.\r\n\r\nIf body site name is already identified in the parent archetype, then this data element may be redundant. Alternatively, a use case has been identified where the value may be duplicated into this element to support semantic querying using this archetype, rather than the data element within the parent."
+      },
+      "aqlPath" : "/items[at0001]/value",
+      "inputs" : [ {
+        "type" : "TEXT"
+      } ]
+    }, {
+      "id" : "specific_site",
+      "name" : "Specific site",
+      "localizedName" : "Specific site",
+      "rmType" : "DV_TEXT",
+      "nodeId" : "at0065",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "ar-sy" : "*Specific site(en)",
+        "sl" : "*Specific site(en)",
+        "nb" : "Spesifikt sted",
+        "pt-br" : "Local específico",
+        "de" : "Spezifische Körperstelle",
+        "nl" : "Specifieke locatie",
+        "sv" : "Specifikt ställe",
+        "en" : "Specific site"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*Additional detail using a specific region or a point on, or within, the identified body site.(en)",
+        "sl" : "*Additional detail using a specific region or a point on, or within, the identified body site.(en)",
+        "nb" : "Ytterligere detaljer gitt ved hjelp av en spesifikk region eller et punkt på eller i det spesifiserte kroppsstedet.",
+        "pt-br" : "Detalhes adicionais utilizando uma região específica ou um ponto, ou dentro, o local do corpo identificado.",
+        "de" : "Zusätzliches Detail unter Verwendung eines bestimmten Bereiches oder eines Punktes auf oder innerhalb der spezifischen Körperstelle.",
+        "nl" : "Extra details met behulp van een specifieke regio of een punt op of binnen de geïdentificeerde lichaamslocatie.",
+        "sv" : "Ytterligare detalj angiven som ett specifikt område eller en punkt på eller i det identifierade kroppsstället.",
+        "en" : "Additional detail using a specific region or a point on, or within, the identified body site."
+      },
+      "annotations" : {
+        "comment" : "Use to increase precision of identification of the body site, if required. For example, the upper right quadrant or McBurney's point on the abdominal wall or interphalangeal joint of the great toe. If the 'Body site name' data element uses pre-coordinated terms that include the specific site, then this data element is redundant."
+      },
+      "aqlPath" : "/items[at0065]/value",
+      "inputs" : [ {
+        "type" : "TEXT"
+      } ]
+    }, {
+      "id" : "laterality",
+      "name" : "Laterality",
+      "localizedName" : "Laterality",
+      "rmType" : "DV_CODED_TEXT",
+      "nodeId" : "at0002",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "ar-sy" : "*Laterality(en)",
+        "sl" : "*Laterality(en)",
+        "nb" : "Kroppsside",
+        "pt-br" : "Lateralidade",
+        "de" : "Lateralität",
+        "nl" : "Lateraliteit",
+        "sv" : "Lateralitet",
+        "en" : "Laterality"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*The side of the body on which the identified  body site is located.(en)",
+        "sl" : "*The side of the body on which the identified  body site is located.(en)",
+        "nb" : "Den identifiserte kroppssiden.",
+        "pt-br" : "O lado do corpo em que se encontra o local do corpo identificado.",
+        "de" : "Die Seite des Körpers, an der sich die identifizierte Körperstelle befindet.",
+        "nl" : "De zijde van het lichaam waarop de geïdentificeerde Lichaamslocatie zich bevindt.",
+        "sv" : "Den sida av kroppen där det identifierade kroppsstället är lokaliserat.",
+        "en" : "The side of the body on which the identified  body site is located."
+      },
+      "annotations" : {
+        "comment" : "If the identified body site has no laterality, this data element should not have a value. \r\nIf the 'Body site name' data element uses pre-coordinated terms that include laterality, then this data element is redundant."
+      },
+      "aqlPath" : "/items[at0002]/value",
+      "inputs" : [ {
+        "suffix" : "code",
+        "type" : "CODED_TEXT",
+        "list" : [ {
+          "value" : "at0003",
+          "label" : "Left",
+          "localizedLabels" : {
+            "ar-sy" : "*Left(en)",
+            "sl" : "*Left(en)",
+            "nb" : "Venstre",
+            "pt-br" : "Esquerdo",
+            "de" : "Links",
+            "nl" : "Links",
+            "sv" : "Vänster",
+            "en" : "Left"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Left side of the body.(en)",
+            "sl" : "*Left side of the body.(en)",
+            "nb" : "Venstre side av kroppen",
+            "pt-br" : "Lado esquerdo do corpo.",
+            "de" : "Die linke Körperseite.",
+            "nl" : "Linkerzijde van het lichaam.",
+            "sv" : "Kroppens vänstra sida.",
+            "en" : "Left side of the body."
+          },
+          "termBindings" : {
+            "SNOMED-CT" : {
+              "value" : "[SNOMED-CT::7771000]",
+              "terminologyId" : "SNOMED-CT"
+            }
+          }
+        }, {
+          "value" : "at0004",
+          "label" : "Right",
+          "localizedLabels" : {
+            "ar-sy" : "*Right(en)",
+            "sl" : "*Right(en)",
+            "nb" : "Høyre",
+            "pt-br" : "Direito",
+            "de" : "Rechts",
+            "nl" : "Rechts",
+            "sv" : "Höger",
+            "en" : "Right"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Right side of the body.(en)",
+            "sl" : "*Right side of the body.(en)",
+            "nb" : "Høyre side av kroppen.",
+            "pt-br" : "Lado direito do corpo.",
+            "de" : "Die rechte Körperseite.",
+            "nl" : "Rechterzijde van het lichaam.",
+            "sv" : "Kroppens högra sida.",
+            "en" : "Right side of the body."
+          },
+          "termBindings" : {
+            "SNOMED-CT" : {
+              "value" : "[SNOMED-CT::24028007]",
+              "terminologyId" : "SNOMED-CT"
+            }
+          }
+        } ]
+      } ],
+      "termBindings" : {
+        "SNOMED-CT" : {
+          "value" : "[SNOMED-CT::272741003]",
+          "terminologyId" : "SNOMED-CT"
+        }
+      }
+    }, {
+      "id" : "aspect",
+      "name" : "Aspect",
+      "localizedName" : "Aspect",
+      "rmType" : "DV_CODED_TEXT",
+      "nodeId" : "at0064",
+      "min" : 0,
+      "max" : 2,
+      "localizedNames" : {
+        "ar-sy" : "*Aspect(en)",
+        "sl" : "*Aspect(en)",
+        "nb" : "Aspekt",
+        "pt-br" : "Aspecto",
+        "de" : "Perspektive",
+        "nl" : "Aspect",
+        "sv" : "Del",
+        "en" : "Aspect"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*Qualifying detail about the specific aspect of the identified body site.(en)",
+        "sl" : "*Qualifying detail about the specific aspect of the identified body site.(en)",
+        "nb" : "Spesifiserende detaljer om mer spesifikke aspekter ved det aktuelle kroppsstedet.",
+        "pt-br" : "Detalhes sobre o aspecto específico do local identificado no corpo.",
+        "de" : "Qualifizierende Angabe unter spezifischer Sicht der identifizierten Körperstelle.",
+        "nl" : "Kwalificerend detail over het specifieke aspect van de geïdentificeerde lichaamslocatie.",
+        "sv" : "Utmärkande detalj hos den specifika delen av det identifierade kroppsstället.",
+        "en" : "Qualifying detail about the specific aspect of the identified body site."
+      },
+      "annotations" : {
+        "comment" : "Use to increase precision of identification of the body site, if required. Common aspects have been included as a value set, which can be extended over time, plus a free text option. Assumes that the body is being described while in the anatomical position. For example: proximal urethra; plantar aspect of the left thumb. Multiple aspects can also be described, if required, by allowing for 0..2 occurrences. For example: a lesion may be on the left anterior/lateral (ie anterolateral) chest wall. If the 'Body site name' data element uses pre-coordinated terms that include the aspect, then this data element is redundant."
+      },
+      "aqlPath" : "/items[at0064]/value",
+      "inputs" : [ {
+        "suffix" : "code",
+        "type" : "CODED_TEXT",
+        "list" : [ {
+          "value" : "at0067",
+          "label" : "Medial",
+          "localizedLabels" : {
+            "ar-sy" : "*Medial(en)",
+            "sl" : "*Medial(en)",
+            "nb" : "Medial",
+            "pt-br" : "Medial",
+            "de" : "Medial",
+            "nl" : "Mediaal",
+            "sv" : "Medial",
+            "en" : "Medial"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Towards the midline of the body site.(en)",
+            "sl" : "*Towards the midline of the body site.(en)",
+            "nb" : "Mot midtlinjen av kroppen.",
+            "pt-br" : "Em direção à linha média do local do corpo",
+            "de" : "Zur Körpermitte hin orientiert.",
+            "nl" : "Naar de middellijn van de lichaamslocatie.",
+            "sv" : "I riktning mot kroppsställets mittlinje.",
+            "en" : "Towards the midline of the body site."
+          }
+        }, {
+          "value" : "at0068",
+          "label" : "Lateral",
+          "localizedLabels" : {
+            "ar-sy" : "*Lateral(en)",
+            "sl" : "*Lateral(en)",
+            "nb" : "Lateral",
+            "pt-br" : "Lateral",
+            "de" : "Lateral",
+            "nl" : "Lateraal",
+            "sv" : "Lateral",
+            "en" : "Lateral"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Towards the side, or edge, of the body site.(en)",
+            "sl" : "*Towards the side, or edge, of the body site.(en)",
+            "nb" : "Mot utsiden eller kanten av kroppen.",
+            "pt-br" : "Para o lado, ou borda , do local do corpo.",
+            "de" : "Zur Seite oder zum Rand der Körperstelle.",
+            "nl" : "Naar de zijkant of rand van de lichaamslocatie.",
+            "sv" : "I riktning mot kroppsställets sida eller kant.",
+            "en" : "Towards the side, or edge, of the body site."
+          }
+        }, {
+          "value" : "at0069",
+          "label" : "Superior",
+          "localizedLabels" : {
+            "ar-sy" : "*Superior(en)",
+            "sl" : "*Superior(en)",
+            "nb" : "Superior",
+            "pt-br" : "Superior",
+            "de" : "Superior",
+            "nl" : "Superior",
+            "sv" : "Superior",
+            "en" : "Superior"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Above the body site, often meaning towards the head.(en)",
+            "sl" : "*Above the body site, often meaning towards the head.(en)",
+            "nb" : "Over kroppssted, ofte menes mot hodet. Synonymt med \"kranial\".",
+            "pt-br" : "Acima do local do corpo, frequentemente significa na direção da cabeça.",
+            "de" : "Über der Körpermitte, oft in Richtung des Kopfes.",
+            "nl" : "Boven de lichaamslocatie, ookwel richting het hoofd.",
+            "sv" : "Ovanför kroppsstället, ofta i betydelsen i riktning mot huvudet.",
+            "en" : "Above the body site, often meaning towards the head."
+          }
+        }, {
+          "value" : "at0070",
+          "label" : "Inferior",
+          "localizedLabels" : {
+            "ar-sy" : "*Inferior(en)",
+            "sl" : "*Inferior(en)",
+            "nb" : "Inferior",
+            "pt-br" : "Inferior",
+            "de" : "Inferior",
+            "nl" : "Inferior",
+            "sv" : "Inferior",
+            "en" : "Inferior"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Below the body site, often meaning towards the feet.(en)",
+            "sl" : "*Below the body site, often meaning towards the feet.(en)",
+            "nb" : "Under kroppssted, ofte menes mot føttene. Synonymt med \"kaudal\".",
+            "pt-br" : "Abaixo do local do corpo, frequentemente significa para os pés.",
+            "de" : "Unterhalb der Körpermitte, oft in Richtung der Füße.",
+            "nl" : "Onder de lichaamslocatie, ook wel richting de voeten.",
+            "sv" : "Nedanför kroppsstället, ofta i betydelsen i riktning mot fötterna.",
+            "en" : "Below the body site, often meaning towards the feet."
+          }
+        }, {
+          "value" : "at0071",
+          "label" : "Anterior",
+          "localizedLabels" : {
+            "ar-sy" : "*Anterior(en)",
+            "sl" : "*Anterior(en)",
+            "nb" : "Anterior",
+            "pt-br" : "Anterior",
+            "de" : "Anterior",
+            "nl" : "Anterior",
+            "sv" : "Främre",
+            "en" : "Anterior"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Towards the front, or ventral surface, of  the body site.(en)",
+            "sl" : "*Towards the front, or ventral surface, of  the body site.(en)",
+            "nb" : "Mot fronten eller ventrale overflaten av kroppsstedet.",
+            "pt-br" : "Para a frente , ou na superfície ventral, do local do corpo.",
+            "de" : "In Richtung der Vorderseite oder der ventralen Oberfläche des Körpers.",
+            "nl" : "Naar de voorkant of het ventrale oppervlak van de lichaamslocatie.",
+            "sv" : "Främre delen eller ventrala ytan av kroppsstället.",
+            "en" : "Towards the front, or ventral surface, of  the body site."
+          }
+        }, {
+          "value" : "at0072",
+          "label" : "Posterior",
+          "localizedLabels" : {
+            "ar-sy" : "*Posterior(en)",
+            "sl" : "*Posterior(en)",
+            "nb" : "Posterior",
+            "pt-br" : "Posterior",
+            "de" : "Posterior",
+            "nl" : "Posterior",
+            "sv" : "Bakre",
+            "en" : "Posterior"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Towards the back, or dorsal surface, of the body site.(en)",
+            "sl" : "*Towards the back, or dorsal surface, of the body site.(en)",
+            "nb" : "Mot bakside eller mot den dorsale overflaten av kroppsstedet.",
+            "pt-br" : "Para a parte traseira ou superfície dorsal do local do corpo.",
+            "de" : "In Richtung Rücken oder Rückseite des Körpers.",
+            "nl" : "Naar de achterkant of het dorsale oppervlak van de lichaamslocatie.",
+            "sv" : "Bakre delen eller dorsala ytan av kroppsstället.",
+            "en" : "Towards the back, or dorsal surface, of the body site."
+          }
+        }, {
+          "value" : "at0073",
+          "label" : "Proximal",
+          "localizedLabels" : {
+            "ar-sy" : "*Proximal(en)",
+            "sl" : "*Proximal(en)",
+            "nb" : "Proksimal",
+            "pt-br" : "Proximal",
+            "de" : "Proximal",
+            "nl" : "Proximaal",
+            "sv" : "Proximal",
+            "en" : "Proximal"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*More central or closer to the point of attachment, and usually describing part of a limb, digit or appendage.(en)",
+            "sl" : "*More central or closer to the point of attachment, and usually describing part of a limb, digit or appendage.(en)",
+            "nb" : "Mer sentralt eller tettere til festepunktet, beskriver vanligvis en del av et lem, finger eller vedheng.",
+            "pt-br" : "Mais central ou para mais perto do ponto de ligação, e, geralmente descreve a parte de um membro, dedo ou apêndice.",
+            "de" : "Zur Körpermitte hin. Beschreibt für gewöhnlich einen Teil eines Gliedmaßes, Fingers oder eines Anhängsels.",
+            "nl" : "Centraler of dichter bij het centrum van het lichaam, meestal gebruikt in de context van een ledenmaat, vinger of aanhangsel.",
+            "sv" : "Mer central eller närmare fastsättningspunkten, vanligtvis en beskrivning av en del av extremitet, finger, tå eller bihang.",
+            "en" : "More central or closer to the point of attachment, and usually describing part of a limb, digit or appendage."
+          }
+        }, {
+          "value" : "at0074",
+          "label" : "Distal",
+          "localizedLabels" : {
+            "ar-sy" : "*Distal(en)",
+            "sl" : "*Distal(en)",
+            "nb" : "Distal",
+            "pt-br" : "Distal",
+            "de" : "Distal",
+            "nl" : "Distaal",
+            "sv" : "Distal",
+            "en" : "Distal"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*More peripheral, or further from the point of attachment, and usually describing part of a limb, digit or appendage.(en)",
+            "sl" : "*More peripheral, or further from the point of attachment, and usually describing part of a limb, digit or appendage.(en)",
+            "nb" : "Mer perifert eller lengre vekke fra festepunktet, beskriver vanligvis av en del av et lem, finger eller vedheng.",
+            "pt-br" : "Mais periférico, ou mais do ponto de acessório, e geralmente descreve a parte de um membro, apêndice ou dígito.",
+            "de" : "Mehr periphere oder weiter vom Körpermitte entfernte Stelle. Beschreibt in der Regel einen Teil einer Extremität, eines Fingers/Zehs oder Körperglieds.",
+            "nl" : "Verder weg van het centrum van het lichaam, meestal gebruikt in de context van een ledenmaat, vinger of aanhangsel.",
+            "sv" : "Mer perifert eller längre bort från fastsättningspunkten, vanligtvis en beskrivning av en del av extremitet, finger, tå eller bihang.",
+            "en" : "More peripheral, or further from the point of attachment, and usually describing part of a limb, digit or appendage."
+          }
+        }, {
+          "value" : "at0080",
+          "label" : "Deep",
+          "localizedLabels" : {
+            "ar-sy" : "*Deep(en)",
+            "sl" : "*Deep(en)",
+            "nb" : "Dyp",
+            "pt-br" : "*Deep(en)",
+            "de" : "Tief",
+            "nl" : "Diep",
+            "sv" : "Djup",
+            "en" : "Deep"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Away from the surface of the body site.(en)",
+            "sl" : "*Away from the surface of the body site.(en)",
+            "nb" : "Bort fra overflaten av kroppsstedet.",
+            "pt-br" : "*Away from the surface of the body site.(en)",
+            "de" : "Entfernt von der Oberfläche der Körperstelle.",
+            "nl" : "Dieper onder de oppervlakte van de lichaamslocatie.",
+            "sv" : "I riktning bort från kroppsställets yta.",
+            "en" : "Away from the surface of the body site."
+          }
+        }, {
+          "value" : "at0081",
+          "label" : "Superficial",
+          "localizedLabels" : {
+            "ar-sy" : "*Superficial(en)",
+            "sl" : "*Superficial(en)",
+            "nb" : "Overfladisk",
+            "pt-br" : "*Superficial(en)",
+            "de" : "Oberflächlich",
+            "nl" : "Oppervlakkig",
+            "sv" : "Ytlig",
+            "en" : "Superficial"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Towards the surface of the body site.(en)",
+            "sl" : "*Towards the surface of the body site.(en)",
+            "nb" : "Mot overflaten av kroppsstedet.",
+            "pt-br" : "*Towards the surface of the body site.(en)",
+            "de" : "Auf die Oberfläche zu, bezeichnet oberflächlich gelegene Strukturen.",
+            "nl" : "Naar de oppervlakte toe van de lichaamslocatie.",
+            "sv" : "I riktning mot kroppsställets yta.",
+            "en" : "Towards the surface of the body site."
+          }
+        }, {
+          "value" : "at0075",
+          "label" : "Palmar",
+          "localizedLabels" : {
+            "ar-sy" : "*Palmar(en)",
+            "sl" : "*Palmar(en)",
+            "nb" : "Palmar",
+            "pt-br" : "Palmar",
+            "de" : "Palmar",
+            "nl" : "Palmair",
+            "sv" : "Palmar",
+            "en" : "Palmar"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Towards the palm of the hand.(en)",
+            "sl" : "*Towards the palm of the hand.(en)",
+            "nb" : "Mot håndflaten.",
+            "pt-br" : "Em direção às palmas das mãos.",
+            "de" : "In Richtung der Handfläche.",
+            "nl" : "Naar de palm van de hand.",
+            "sv" : "I riktning mot handflatan.",
+            "en" : "Towards the palm of the hand."
+          }
+        }, {
+          "value" : "at0076",
+          "label" : "Plantar",
+          "localizedLabels" : {
+            "ar-sy" : "*Plantar(en)",
+            "sl" : "*Plantar(en)",
+            "nb" : "Plantar",
+            "pt-br" : "Plantar",
+            "de" : "Plantar",
+            "nl" : "Plantair",
+            "sv" : "Plantar",
+            "en" : "Plantar"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Towards the sole of the foot.(en)",
+            "sl" : "*Towards the sole of the foot.(en)",
+            "nb" : "Mot fotsålen.",
+            "pt-br" : "Em direção às solas dos pés.",
+            "de" : "In Richtung der Fußsohle.",
+            "nl" : "Naar de voetzool.",
+            "sv" : "I riktning mot fotsulan.",
+            "en" : "Towards the sole of the foot."
+          }
+        }, {
+          "value" : "at0082",
+          "label" : "Dorsal",
+          "localizedLabels" : {
+            "ar-sy" : "*Dorsal(en)",
+            "sl" : "*Dorsal(en)",
+            "nb" : "Dorsal",
+            "pt-br" : "*Dorsal(en)",
+            "de" : "Dorsal",
+            "nl" : "Dorsaal",
+            "sv" : "Dorsal",
+            "en" : "Dorsal"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Towards the back of the hand or top of the foot. To be used as opposites of palmar or plantar, not as a synonym of posterior.(en)",
+            "sl" : "*Towards the back of the hand or top of the foot. To be used as opposites of palmar or plantar, not as a synonym of posterior.(en)",
+            "nb" : "Mot håndbaken eller toppen av foten. Brukes som motsetning til palmar og plantar, ikke som synonym for posterior.",
+            "pt-br" : "*Towards the back of the hand or top of the foot. To be used as opposites of palmar or plantar, not as a synonym of posterior.(en)",
+            "de" : "In Richtung des Handrückens oder des Fußrückens hin gelegen. Als Gegenstück zu Palmar oder Plantar, nicht als Synonym für posterior.",
+            "nl" : "Naar de rug van de hand of de voet. Gebruik als tegenovergestelde van palmair of plantair, en niet als synoniem voor posterior.",
+            "sv" : "I riktning mot handens baksida eller fotens ovansida. Används som motsats till handflata och fotsula, inte som en synonym till bakre.",
+            "en" : "Towards the back of the hand or top of the foot. To be used as opposites of palmar or plantar, not as a synonym of posterior."
+          }
+        }, {
+          "value" : "at0077",
+          "label" : "Mid",
+          "localizedLabels" : {
+            "ar-sy" : "*Mid(en)",
+            "sl" : "*Mid(en)",
+            "nb" : "Mid",
+            "pt-br" : "Médio",
+            "de" : "Mid",
+            "nl" : "Midden",
+            "sv" : "I mitten av",
+            "en" : "Mid"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*In the middle of the body site.(en)",
+            "sl" : "*In the middle of the body site.(en)",
+            "nb" : "I midten av kroppsstedet.",
+            "pt-br" : "No meio do corpo.",
+            "de" : "In der Mitte des Körpers.",
+            "nl" : "In het midden van de lichaamslocatie.",
+            "sv" : "I mitten av kroppsstället.",
+            "en" : "In the middle of the body site."
+          }
+        }, {
+          "value" : "at0078",
+          "label" : "Oral",
+          "localizedLabels" : {
+            "ar-sy" : "*Oral(en)",
+            "sl" : "*Oral(en)",
+            "nb" : "Oral",
+            "pt-br" : "Oral",
+            "de" : "Oral",
+            "nl" : "Oraal",
+            "sv" : "Oral",
+            "en" : "Oral"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Towards the mouth. Usually used to describe locations within the digestive system.(en)",
+            "sl" : "*Towards the mouth. Usually used to describe locations within the digestive system.(en)",
+            "nb" : "Mot munnen. Brukes som regel til å beskrive lokaliseringer i fordøyelsessystemet.",
+            "pt-br" : "Para a boca. Geralmente utilizado para descrever locais no sistema digestivo.",
+            "de" : "Den Mund betreffend. Wird üblicherweise zur Beschreibung von Stellen im Verdauungssystem verwendet.",
+            "nl" : "Naar de mond toe, meestal gebruikt in de context van het spijsverteringssysteem.",
+            "sv" : "I riktning mot munnen. Används vanligtvis för att beskriva lokalisation inom matspjälkningssystemet.",
+            "en" : "Towards the mouth. Usually used to describe locations within the digestive system."
+          }
+        }, {
+          "value" : "at0079",
+          "label" : "Anal",
+          "localizedLabels" : {
+            "ar-sy" : "*Anal(en)",
+            "sl" : "*Anal(en)",
+            "nb" : "Anal",
+            "pt-br" : "Anal",
+            "de" : "Anal",
+            "nl" : "Anaal",
+            "sv" : "Anal",
+            "en" : "Anal"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Towards the anus. Usually used to describe locations within the digestive system.(en)",
+            "sl" : "*Towards the anus. Usually used to describe locations within the digestive system.(en)",
+            "nb" : "Mot anus. Brukes som regel til å beskrive lokaliseringer i fordøyelsessystemet.",
+            "pt-br" : "Para o ânus. Geralmente utilizado para descrever locais no sistema digestivo.",
+            "de" : "Zum Anus hin. Wird üblicherweise zur Beschreibung von Stellen im Verdauungssystem verwendet.",
+            "nl" : "Naar de anus toe, meestal gebruikt in de context van het spijsverteringssysteem.",
+            "sv" : "I riktning mot anus. Används vanligtvis för att beskriva lokalisation inom matspjälkningssystemet.",
+            "en" : "Towards the anus. Usually used to describe locations within the digestive system."
+          }
+        } ],
+        "listOpen" : true
+      }, {
+        "suffix" : "other",
+        "type" : "TEXT"
+      } ]
+    }, {
+      "id" : "anatomical_line",
+      "name" : "Anatomical Line",
+      "localizedName" : "Anatomical Line",
+      "rmType" : "DV_CODED_TEXT",
+      "nodeId" : "at0055",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "ar-sy" : "*Anatomical Line(en)",
+        "sl" : "*Anatomical Line(en)",
+        "nb" : "Anatomisk linje",
+        "pt-br" : "Linha anatômica",
+        "de" : "Anatomische Linie",
+        "nl" : "Anatomische lijn",
+        "sv" : "Anatomisk linje",
+        "en" : "Anatomical Line"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*Additional detail using theoretical lines drawn through anatomical structures used to provide a consistent reference point on the human body.(en)",
+        "sl" : "*Additional detail using theoretical lines drawn through anatomical structures used to provide a consistent reference point on the human body.(en)",
+        "nb" : "Detaljer om det anatomiske stedet beskrevet med teoretiske linjer tegnet gjennom anatomiske strukturer til bruk som et konsistent referansepunkt.",
+        "pt-br" : "Detalhes adicionais utilizando-se linhas teóricas desenhadas através de estruturas anatômicas, utilizadas para fornecer um ponto de referência consistente no corpo humano.",
+        "de" : "Zusätzliches Detail unter Verwendung theoretischer Linien, die durch anatomische Strukturen erweitert werden können, um einen einheitlichen Bezugspunkt auf dem menschlichen Körper zu erhalten.",
+        "nl" : "Extra details met behulp van theoretische lijnen getrokken door anatomische structuren die worden gebruikt om een ​​consistent referentiepunt op het menselijk lichaam te bieden.",
+        "sv" : "Ytterligare detalj där teoretiska linjer dragits genom anatomiska strukturer för att ge en fast referenspunkt på människokroppen.",
+        "en" : "Additional detail using theoretical lines drawn through anatomical structures used to provide a consistent reference point on the human body."
+      },
+      "annotations" : {
+        "comment" : "Common anatomical lines have been included as a value set, which can be extended over time, plus a free text option. The additional use of this data element allows for recording of the typical position of the heart's apex beat at 5th intercostal space, left side, and mid-clavicular line. If the 'Body site name' data element uses pre-coordinated terms that include anatomical line, then this data element is redundant."
+      },
+      "aqlPath" : "/items[at0055]/value",
+      "inputs" : [ {
+        "suffix" : "code",
+        "type" : "CODED_TEXT",
+        "list" : [ {
+          "value" : "at0062",
+          "label" : "Midline",
+          "localizedLabels" : {
+            "ar-sy" : "*Midline(en)",
+            "sl" : "*Midline(en)",
+            "nb" : "Midtlinjen",
+            "pt-br" : "Linha média",
+            "de" : "Mittellinie",
+            "nl" : "Middenlijn",
+            "sv" : "Mittlinje",
+            "en" : "Midline"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Line running vertically which divides the body into left and right portions, passing through the head, spinal cord, and umbilicus. Alternatively it can refer to a line dividing a body part into two equal portions, for example a digit.(en)",
+            "sl" : "*Line running vertically which divides the body into left and right portions, passing through the head, spinal cord, and umbilicus. Alternatively it can refer to a line dividing a body part into two equal portions, for example a digit.(en)",
+            "nb" : "En linje som løper vertikalt og deler kroppen i en venstre og en høyre del, passerer gjennom hodet, spinal medulla og umbilicus. Alternativt kan det brukes som en delelinje av en kroppsdel, for eksempel en inndeling av en finger.",
+            "pt-br" : "Linha vertical que divide o corpo em partes esquerda e direita, passando através da cabeça, medula espinhal e umbigo. Alternativamente pode referir uma linha que divide uma parte do corpo em duas partes iguais.",
+            "de" : "Vertikal verlaufende Linie, die den Körper in eine linke und rechte Seite teilt und durch den Kopf, das Rückenmark und den Nabel verläuft. Alternativ kann es sich auf eine Linie beziehen, die ein Körperteil in zwei gleiche Teile teilt, zum Beispiel einen Zeh/Finger.",
+            "nl" : "Lijn die verticaal loopt en het lichaam in linker en rechter delen verdeelt, die door het hoofd, het ruggenmerg en de navel loopt. Als alternatief kan het verwijzen naar een lijn die een lichaamsdeel in twee gelijke delen verdeelt.",
+            "sv" : "En vertikal linje som delar in kroppen i vänster och höger halva. Den går genom huvud, ryggmärg och navel. Alternativt åsyftas en linje som delar in en kroppsdel i två lika stora delar, exempelvis en tå eller ett finger.",
+            "en" : "Line running vertically which divides the body into left and right portions, passing through the head, spinal cord, and umbilicus. Alternatively it can refer to a line dividing a body part into two equal portions, for example a digit."
+          }
+        }, {
+          "value" : "at0056",
+          "label" : "Midaxillary line",
+          "localizedLabels" : {
+            "ar-sy" : "*Midaxillary line(en)",
+            "sl" : "*Midaxillary line(en)",
+            "nb" : "Midtaksillærlinjen",
+            "pt-br" : "Linha axilar média",
+            "de" : "mittlere Axillarlinie",
+            "nl" : "Midaxillaire lijn",
+            "sv" : "Mellersta axillarlinjen",
+            "en" : "Midaxillary line"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Line running vertically down the surface of the body, passing through the apex of the axilla.(en)",
+            "sl" : "*Line running vertically down the surface of the body, passing through the apex of the axilla.(en)",
+            "nb" : "Linje som løper vertikalt ned langs overflaten av kroppen gjennom apex i aksillen.",
+            "pt-br" : "Linha correndo verticalmente para baixo na superfície do corpo, passando através do ápice da axila.",
+            "de" : "Linie, die senkrecht zur Körperoberfläche verläuft und durch den Scheitelpunkt der Achselhöhle geht.",
+            "nl" : "Lijn die verticaal langs het oppervlak van het lichaam loopt en door de top van de oksel loopt.",
+            "sv" : "En vertikal linje som går över kroppsytan genom axillspetsen.",
+            "en" : "Line running vertically down the surface of the body, passing through the apex of the axilla."
+          }
+        }, {
+          "value" : "at0057",
+          "label" : "Anterior axillary line",
+          "localizedLabels" : {
+            "ar-sy" : "*Anterior axillary line(en)",
+            "sl" : "*Anterior axillary line(en)",
+            "nb" : "Fremre aksillærlinje",
+            "pt-br" : "Linha axilar anterior",
+            "de" : "vordere Axillarlinie",
+            "nl" : "Anterior axillaire lijn",
+            "sv" : "Främre axillarlinjen",
+            "en" : "Anterior axillary line"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Line running vertically down the surface of the body, passing through the anterior axillary skinfold.(en)",
+            "sl" : "*Line running vertically down the surface of the body, passing through the anterior axillary skinfold.(en)",
+            "nb" : "En linje som løper vertikalt ned langs kroppsoverflaten, og passerer gjennom fremre aksillære hudfold.",
+            "pt-br" : "Linha correndo verticalmente para baixo da superfície do corpo , passando pela dobra cutânea axilar anterior .",
+            "de" : "Die Linie verläuft senkrecht über die Körperoberfläche und verläuft durch die vordere Hautfalte der Achselhöhle.",
+            "nl" : "Lijn die verticaal langs het oppervlak van het lichaam loopt en door de voorste axillaire huidplooi gaat.",
+            "sv" : "En linje som löper vertikalt ner över kroppens yta och passerar genom det främre axillära hudvecket.",
+            "en" : "Line running vertically down the surface of the body, passing through the anterior axillary skinfold."
+          }
+        }, {
+          "value" : "at0058",
+          "label" : "Posterior axillary line",
+          "localizedLabels" : {
+            "ar-sy" : "*Posterior axillary line(en)",
+            "sl" : "*Posterior axillary line(en)",
+            "nb" : "Bakre aksillærlinje",
+            "pt-br" : "Linha axilar posterior",
+            "de" : "hintere Axillarlinie",
+            "nl" : "Posterior axillaire lijn",
+            "sv" : "Bakre axillarlinjen",
+            "en" : "Posterior axillary line"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Line running vertically down the surface of the body, passing through the posterior axillary skinfold.(en)",
+            "sl" : "*Line running vertically down the surface of the body, passing through the posterior axillary skinfold.(en)",
+            "nb" : "En linje som løper vertikalt ned langs kroppsoverflaten, og passerer gjennom bakre aksillære hudfold.",
+            "pt-br" : "Linha correndo verticalmente para baixo da superfície do corpo , passando pela dobra cutânea axilar posterior .",
+            "de" : "Linie, die senkrecht über die Körperoberfläche verläuft und durch die hintere Achselhaut führt.",
+            "nl" : "Lijn die verticaal langs het oppervlak van het lichaam loopt en door de achterste axillaire huidplooi gaat.",
+            "sv" : "En linje som löper vertikalt ner över kroppens yta och passerar genom det bakre axillära hudvecket.",
+            "en" : "Line running vertically down the surface of the body, passing through the posterior axillary skinfold."
+          }
+        }, {
+          "value" : "at0059",
+          "label" : "Mid-clavicular line",
+          "localizedLabels" : {
+            "ar-sy" : "*Mid-clavicular line(en)",
+            "sl" : "*Mid-clavicular line(en)",
+            "nb" : "Midtclaviculærlinjen",
+            "pt-br" : "Linha clavicular média",
+            "de" : "Medioklavikularlinie",
+            "nl" : "Mid-claviculaire lijn",
+            "sv" : "Medioklavikularlinjen",
+            "en" : "Mid-clavicular line"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Line running vertically down the surface of the body, parallel to the midline and passing through the midpoint of the clavicle.(en)",
+            "sl" : "*Line running vertically down the surface of the body, parallel to the midline and passing through the midpoint of the clavicle.(en)",
+            "nb" : "En linje som løper vertikalt ned langs kroppsoverflaten parallelt med midtlinjen og passerer gjennom clavicelens midtpunkt.",
+            "pt-br" : "Linha correndo verticalmente para baixo na superfície do corpo, paralelo à linha média e passando pelo ponto médio da clavícula.",
+            "de" : "Linie, die senkrecht über die Körperoberfläche verläuft, parallel zur Mittellinie und durch den Mittelpunkt der Klavikula führt.",
+            "nl" : "Lijn die verticaal langs het lichaamsoppervlak loopt, evenwijdig aan de middellijn en door het middelpunt van het sleutelbeen.",
+            "sv" : "En linje som löper vertikalt ner på kroppens yta, parallellt med mittlinjen och passerar genom nyckelbenets mittpunkt.",
+            "en" : "Line running vertically down the surface of the body, parallel to the midline and passing through the midpoint of the clavicle."
+          }
+        }, {
+          "value" : "at0060",
+          "label" : "Mid-pupillary line",
+          "localizedLabels" : {
+            "ar-sy" : "*Mid-pupillary line(en)",
+            "sl" : "*Mid-pupillary line(en)",
+            "nb" : "Midtpupillinjen",
+            "pt-br" : "Linha pupilar média",
+            "de" : "Mittelere Pupillarlinie",
+            "nl" : "Mid-pupillaire lijn",
+            "sv" : "Mellersta pupillinjen",
+            "en" : "Mid-pupillary line"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Line running vertically down the face through the midpoint of the pupil when looking directly forward.(en)",
+            "sl" : "*Line running vertically down the face through the midpoint of the pupil when looking directly forward.(en)",
+            "nb" : "En linje som løper vertikalt ned ansiktet gjennom midtpunktet av pupillen når man ser rett framover.",
+            "pt-br" : "Linha correndo verticalmente para baixo à face através do ponto médio da pupila quando se olha diretamente para a frente.",
+            "de" : "Die Linie verläuft vertikal durch den Mittelpunkt der Pupille, wenn man direkt nach vorne schaut.",
+            "nl" : "Lijn die verticaal over het gezicht loopt door het middelpunt van de pupil als je recht naar voren kijkt.",
+            "sv" : "En linjen löper lodrätt nedåt längs ansiktet genom pupillens mittpunkt när man tittar direkt framåt.",
+            "en" : "Line running vertically down the face through the midpoint of the pupil when looking directly forward."
+          }
+        }, {
+          "value" : "at0063",
+          "label" : "Mid-scapular line",
+          "localizedLabels" : {
+            "ar-sy" : "*Mid-scapular line(en)",
+            "sl" : "*Mid-scapular line(en)",
+            "nb" : "Midtskapulærlinjen",
+            "pt-br" : "Linha escapular média",
+            "de" : "Mittlere Skapularlinie",
+            "nl" : "Mid-scapulaire lijn",
+            "sv" : "Mellersta skapularlinjen",
+            "en" : "Mid-scapular line"
+          },
+          "localizedDescriptions" : {
+            "ar-sy" : "*Line running vertically down the posterior surface of the body, parallel to the midline and passing through the inferior point of the scapula.(en)",
+            "sl" : "*Line running vertically down the posterior surface of the body, parallel to the midline and passing through the inferior point of the scapula.(en)",
+            "nb" : "En linje som løper vertikalt ned langs ryggens overflate, parallelt med midtlinjen og passerer gjennom det inferiore punkt av skapula.",
+            "pt-br" : "A linha que corre verticalmente para baixo da superfície posterior do corpo, paralelamente à linha mediana e que passa pelo ponto inferior da escápula.",
+            "de" : "Die Linie verläuft senkrecht über die hintere Körperoberfläche, parallel zur Mittellinie und verläuft durch den unteren Punkt des Schulterblattes.",
+            "nl" : "Lijn die verticaal langs het achterste oppervlak van het lichaam loopt, evenwijdig aan de middellijn en door het onderste punt van het schouderblad gaat.",
+            "sv" : "En linje som löper vertikalt längs kroppens bakre yta, parallellt med mittlinjen och passerar genom den lägre punkten på skulderbladet.",
+            "en" : "Line running vertically down the posterior surface of the body, parallel to the midline and passing through the inferior point of the scapula."
+          }
+        } ],
+        "listOpen" : true
+      }, {
+        "suffix" : "other",
+        "type" : "TEXT"
+      } ]
+    }, {
+      "id" : "description",
+      "name" : "Description",
+      "localizedName" : "Description",
+      "rmType" : "DV_TEXT",
+      "nodeId" : "at0023",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "ar-sy" : "*Description(en)",
+        "sl" : "*Description(en)",
+        "nb" : "Beskrivelse",
+        "pt-br" : "Descrição",
+        "de" : "Beschreibung",
+        "nl" : "Beschrijving",
+        "sv" : "Beskrivning",
+        "en" : "Description"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*Narrative description that can be used to further refine and support the 'Body site name'.(en)",
+        "sl" : "*Narrative description that can be used to further refine and support the 'Body site name'.(en)",
+        "nb" : "Fritekstbeskrivelse som kan brukes for å ytterligere presisere og støtte \"Navn på kroppsted\".",
+        "pt-br" : "Descrição narrativa que pode ser usada para refinar e apoiar o 'nome do local do corpo'.",
+        "de" : "Aussagekräftige Erläuterung, die verwendet werden kann, um die \"Körperstelle\" weiter zu verfeinern.",
+        "nl" : "Verhalende beschrijving die kan worden gebruikt om de 'Lichaamslocatie' verder te verfijnen en te ondersteunen.",
+        "sv" : "Beskrivning för att ytterligare specificera och detaljera \"Namn på kroppsställe\".",
+        "en" : "Narrative description that can be used to further refine and support the 'Body site name'."
+      },
+      "annotations" : {
+        "comment" : "For example: adjacent to the vermilion border; a tattoo covers the bottom half of this area."
+      },
+      "aqlPath" : "/items[at0023]/value",
+      "inputs" : [ {
+        "type" : "TEXT"
+      } ]
+    } ]
+  }
+}

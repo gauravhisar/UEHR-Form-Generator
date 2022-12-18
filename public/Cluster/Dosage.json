@@ -1,0 +1,709 @@
+{
+  "templateId" : "Dosage",
+  "semVer" : "0.1.0",
+  "version" : "2.3",
+  "defaultLanguage" : "en",
+  "languages" : [ "nb", "pt-br", "de", "sv", "en" ],
+  "tree" : {
+    "id" : "dosage",
+    "name" : "Dosage",
+    "localizedName" : "Dosage",
+    "rmType" : "CLUSTER",
+    "nodeId" : "openEHR-EHR-CLUSTER.dosage.v2",
+    "min" : 0,
+    "max" : -1,
+    "localizedNames" : {
+      "nb" : "Dosage",
+      "pt-br" : "Dosage",
+      "de" : "Dosage",
+      "sv" : "Dosage",
+      "en" : "Dosage"
+    },
+    "localizedDescriptions" : {
+      "nb" : "Kombinasjonen av legemiddeldose og administrasjonstidspunkter for en dag, innenfor sammenhengen legemiddelordinering eller legemiddelhåndtering.",
+      "pt-br" : "A combinação de uma quantidade de medicamento e o tempo de administração para um único dia, no contexto de uma solicitação ou gestão de medicamento.\r\n",
+      "de" : "Kombination von Medikamentendosis und Verabreichungszeit an einem Tag im Kontext einer Medikamentenverordnung oder der Arzneimittelverwaltung.",
+      "sv" : "Kombinationen av läkemedelsmängd och administreringstidpunkt för en dag, i samband med en läkemedelsorder eller läkemedelshantering.",
+      "en" : "The combination of a medication amount and administration timing for a single day, in the context of a medication order or medication management."
+    },
+    "annotations" : {
+      "comment" : "For example: '2 tablets at 6pm' or '20 mg three times per day'. Please note: this cluster allows multiple occurrences to enable representation of a complete set of dose patterns for a single dose direction."
+    },
+    "aqlPath" : "",
+    "children" : [ {
+      "id" : "dosage_sequence",
+      "name" : "Dosage sequence",
+      "localizedName" : "Dosage sequence",
+      "rmType" : "DV_COUNT",
+      "nodeId" : "at0164",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "nb" : "Doseringsrekkefølge",
+        "pt-br" : "Sequência de dosagem",
+        "de" : "Dosierungsreihenfolge",
+        "sv" : "Doseringssekvens",
+        "en" : "Dosage sequence"
+      },
+      "localizedDescriptions" : {
+        "nb" : "Tilsiktet rekkefølge for denne doseringen i den overordnede sekvensen av doseringer.",
+        "pt-br" : "A posição determinada desta dose dentro da sequência geral de doses.",
+        "de" : "Beabsichtigte Reihenfolge dieser Dosierung in der Gesamtdosierungsfolge.",
+        "sv" : "Den avsedda positionen för denna dosering inom den totala doseringssekvensen.",
+        "en" : "The intended position of this dosage within the overall sequence of dosages."
+      },
+      "annotations" : {
+        "comment" : "For example: '1', '2', '3'. \r\nWhere multiple dosages are expressed, the 'Pattern sequence' makes the order in which they should be executed explicit. For example: (1) 1 tab in the morning, (2) 2 tab at 2pm, (3) 1 tab at night."
+      },
+      "aqlPath" : "/items[at0164]/value",
+      "inputs" : [ {
+        "type" : "INTEGER",
+        "validation" : {
+          "range" : {
+            "minOp" : ">=",
+            "min" : 1
+          }
+        }
+      } ]
+    }, {
+      "id" : "dose",
+      "name" : "Dose",
+      "localizedName" : "Dose",
+      "rmType" : "ELEMENT",
+      "nodeId" : "at0144",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "nb" : "Dose",
+        "pt-br" : "*Dose (en)",
+        "de" : "Dosis",
+        "sv" : "*Dose (en)",
+        "en" : "Dose"
+      },
+      "localizedDescriptions" : {
+        "nb" : "Legemiddelmengden (dosen) administrert på ett tidspunkt",
+        "pt-br" : "*The value of the amount of medication administered at one time. (en)",
+        "de" : "Die Menge der verabreichten Medikation zu einem Zeitpunkt.",
+        "sv" : "*The value of the amount of medication administered at one time. (en)",
+        "en" : "The amount of medication administered at one time."
+      },
+      "annotations" : {
+        "comment" : "For example: 1 mg, 1.5 ml, 0.125 g; or 1-2 ml, 12.5-20.5 mg."
+      },
+      "aqlPath" : "/items[at0144]",
+      "children" : [ {
+        "id" : "quantity_value",
+        "localizedName" : "Dose",
+        "rmType" : "DV_QUANTITY",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "nb" : "Dose",
+          "pt-br" : "*Dose (en)",
+          "de" : "Dosis",
+          "sv" : "*Dose (en)",
+          "en" : "Dose"
+        },
+        "localizedDescriptions" : {
+          "nb" : "Legemiddelmengden (dosen) administrert på ett tidspunkt",
+          "pt-br" : "*The value of the amount of medication administered at one time. (en)",
+          "de" : "Die Menge der verabreichten Medikation zu einem Zeitpunkt.",
+          "sv" : "*The value of the amount of medication administered at one time. (en)",
+          "en" : "The amount of medication administered at one time."
+        },
+        "aqlPath" : "/items[at0144]/value",
+        "inputs" : [ {
+          "suffix" : "magnitude",
+          "type" : "DECIMAL"
+        }, {
+          "suffix" : "unit",
+          "type" : "CODED_TEXT"
+        } ]
+      }, {
+        "id" : "interval_of_quantity_value",
+        "localizedName" : "Dose",
+        "rmType" : "DV_INTERVAL<DV_QUANTITY>",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "nb" : "Dose",
+          "pt-br" : "*Dose (en)",
+          "de" : "Dosis",
+          "sv" : "*Dose (en)",
+          "en" : "Dose"
+        },
+        "localizedDescriptions" : {
+          "nb" : "Legemiddelmengden (dosen) administrert på ett tidspunkt",
+          "pt-br" : "*The value of the amount of medication administered at one time. (en)",
+          "de" : "Die Menge der verabreichten Medikation zu einem Zeitpunkt.",
+          "sv" : "*The value of the amount of medication administered at one time. (en)",
+          "en" : "The amount of medication administered at one time."
+        },
+        "aqlPath" : "/items[at0144]/value",
+        "children" : [ {
+          "id" : "lower",
+          "rmType" : "DV_QUANTITY",
+          "nodeId" : "",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/items[at0144]/value/lower",
+          "inputs" : [ {
+            "suffix" : "magnitude",
+            "type" : "DECIMAL"
+          }, {
+            "suffix" : "unit",
+            "type" : "CODED_TEXT"
+          } ]
+        }, {
+          "id" : "upper",
+          "rmType" : "DV_QUANTITY",
+          "nodeId" : "",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/items[at0144]/value/upper",
+          "inputs" : [ {
+            "suffix" : "magnitude",
+            "type" : "DECIMAL"
+          }, {
+            "suffix" : "unit",
+            "type" : "CODED_TEXT"
+          } ]
+        } ]
+      } ]
+    }, {
+      "id" : "dose_formula",
+      "name" : "Dose formula",
+      "localizedName" : "Dose formula",
+      "rmType" : "ELEMENT",
+      "nodeId" : "at0135",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "nb" : "Doseringsformel",
+        "pt-br" : "Fórmula da dose",
+        "de" : "Dosisformel",
+        "sv" : "Doseringsformel",
+        "en" : "Dose formula"
+      },
+      "localizedDescriptions" : {
+        "nb" : "Formelen som er brukt for å regne ut dosen eller administreringshastigheten der dette er avhengig av en annen faktor som f.eks. kroppsvekt eller hudoverflate.",
+        "pt-br" : "A fórmula utilizada para calcular a quantidade da dose ou taxa de administração à qual é dependente ou algum outro fator, como peso corporal ou área de superfície.",
+        "de" : "Die Formel zur Berechnung der Dosismenge oder der Verabreichungsrate, wenn dies von einem anderen Faktor abhängt, wie z. B. dem Körpergewicht oder der Hautoberfläche.",
+        "sv" : "Formeln som används för att beräkna dosmängden eller administreringshastigheten då detta är beroende av någon annan faktor, såsom kroppsvikt eller ytarea.",
+        "en" : "The formula used to calculate the dose amount or administration rate where this is dependent on some other factor, such as body weight or surface area."
+      },
+      "annotations" : {
+        "comment" : "For example: '10 mg/kg/day'. The result of this formula would normally be held in Dose or Administration rate/duration. Where clinical measurements such as body weight is used in the dose calculation, a LINK attribute should used to specify which particular measurement has been used."
+      },
+      "aqlPath" : "/items[at0135]",
+      "children" : [ {
+        "id" : "text_value",
+        "localizedName" : "Dose formula",
+        "rmType" : "DV_TEXT",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "nb" : "Doseringsformel",
+          "pt-br" : "Fórmula da dose",
+          "de" : "Dosisformel",
+          "sv" : "Doseringsformel",
+          "en" : "Dose formula"
+        },
+        "localizedDescriptions" : {
+          "nb" : "Formelen som er brukt for å regne ut dosen eller administreringshastigheten der dette er avhengig av en annen faktor som f.eks. kroppsvekt eller hudoverflate.",
+          "pt-br" : "A fórmula utilizada para calcular a quantidade da dose ou taxa de administração à qual é dependente ou algum outro fator, como peso corporal ou área de superfície.",
+          "de" : "Die Formel zur Berechnung der Dosismenge oder der Verabreichungsrate, wenn dies von einem anderen Faktor abhängt, wie z. B. dem Körpergewicht oder der Hautoberfläche.",
+          "sv" : "Formeln som används för att beräkna dosmängden eller administreringshastigheten då detta är beroende av någon annan faktor, såsom kroppsvikt eller ytarea.",
+          "en" : "The formula used to calculate the dose amount or administration rate where this is dependent on some other factor, such as body weight or surface area."
+        },
+        "aqlPath" : "/items[at0135]/value",
+        "inputs" : [ {
+          "type" : "TEXT"
+        } ]
+      }, {
+        "id" : "quantity_value",
+        "localizedName" : "Dose formula",
+        "rmType" : "DV_QUANTITY",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "nb" : "Doseringsformel",
+          "pt-br" : "Fórmula da dose",
+          "de" : "Dosisformel",
+          "sv" : "Doseringsformel",
+          "en" : "Dose formula"
+        },
+        "localizedDescriptions" : {
+          "nb" : "Formelen som er brukt for å regne ut dosen eller administreringshastigheten der dette er avhengig av en annen faktor som f.eks. kroppsvekt eller hudoverflate.",
+          "pt-br" : "A fórmula utilizada para calcular a quantidade da dose ou taxa de administração à qual é dependente ou algum outro fator, como peso corporal ou área de superfície.",
+          "de" : "Die Formel zur Berechnung der Dosismenge oder der Verabreichungsrate, wenn dies von einem anderen Faktor abhängt, wie z. B. dem Körpergewicht oder der Hautoberfläche.",
+          "sv" : "Formeln som används för att beräkna dosmängden eller administreringshastigheten då detta är beroende av någon annan faktor, såsom kroppsvikt eller ytarea.",
+          "en" : "The formula used to calculate the dose amount or administration rate where this is dependent on some other factor, such as body weight or surface area."
+        },
+        "aqlPath" : "/items[at0135]/value",
+        "inputs" : [ {
+          "suffix" : "magnitude",
+          "type" : "DECIMAL"
+        }, {
+          "suffix" : "unit",
+          "type" : "CODED_TEXT"
+        } ]
+      } ]
+    }, {
+      "id" : "dose_description",
+      "name" : "Dose description",
+      "localizedName" : "Dose description",
+      "rmType" : "DV_TEXT",
+      "nodeId" : "at0178",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "nb" : "Dosebeskrivelse",
+        "pt-br" : "Descrição da dose",
+        "de" : "Dosisbeschreibung",
+        "sv" : "Doseringsbeskrivning",
+        "en" : "Dose description"
+      },
+      "localizedDescriptions" : {
+        "nb" : "Tekstbeskrivelse av dosen.",
+        "pt-br" : "Descrição textual da dose.",
+        "de" : "Textbeschreibung der Dosis.",
+        "sv" : "Textbeskrvining av dosen.",
+        "en" : "Text description of the dose."
+      },
+      "annotations" : {
+        "comment" : "For example: \"Apply ointment to affected area until it glistens\". This element is intended to allow implementers to use the structures for increasing/tapering dosages without necessarily specifying the doses in a structured way."
+      },
+      "aqlPath" : "/items[at0178]/value",
+      "inputs" : [ {
+        "type" : "TEXT"
+      } ]
+    }, {
+      "id" : "administration_rate",
+      "name" : "Administration rate",
+      "localizedName" : "Administration rate",
+      "rmType" : "ELEMENT",
+      "nodeId" : "at0134",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "nb" : "Administreringshastighet",
+        "pt-br" : "Taxa de administração",
+        "de" : "Verabreichungsrate",
+        "sv" : "Administrationshastighet",
+        "en" : "Administration rate"
+      },
+      "localizedDescriptions" : {
+        "nb" : "Hastigheten som skal benyttes under administreringen, for eksempel ved en infusjon.",
+        "pt-br" : "A taxa na qual o medicamento, como uma infusão, deve ser administrado.",
+        "de" : "Die Rate, mit der das Medikament, beispielsweise eine Infusion, verabreicht werden soll.",
+        "sv" : "Den hastighet med vilken läkemedlet, såsom en infusion, ska administreras.",
+        "en" : "The rate at which the medication, such as an infusion, is to be administered."
+      },
+      "annotations" : {
+        "comment" : "For example: '200 ml/h'. Use the text data type to record non- or semi-quantifiable instructions."
+      },
+      "aqlPath" : "/items[at0134]",
+      "children" : [ {
+        "id" : "quantity_value",
+        "localizedName" : "Administration rate",
+        "rmType" : "DV_QUANTITY",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "nb" : "Administreringshastighet",
+          "pt-br" : "Taxa de administração",
+          "de" : "Verabreichungsrate",
+          "sv" : "Administrationshastighet",
+          "en" : "Administration rate"
+        },
+        "localizedDescriptions" : {
+          "nb" : "Hastigheten som skal benyttes under administreringen, for eksempel ved en infusjon.",
+          "pt-br" : "A taxa na qual o medicamento, como uma infusão, deve ser administrado.",
+          "de" : "Die Rate, mit der das Medikament, beispielsweise eine Infusion, verabreicht werden soll.",
+          "sv" : "Den hastighet med vilken läkemedlet, såsom en infusion, ska administreras.",
+          "en" : "The rate at which the medication, such as an infusion, is to be administered."
+        },
+        "aqlPath" : "/items[at0134]/value",
+        "inputs" : [ {
+          "suffix" : "magnitude",
+          "type" : "DECIMAL"
+        }, {
+          "suffix" : "unit",
+          "type" : "CODED_TEXT",
+          "list" : [ {
+            "value" : "l/h",
+            "label" : "l/h",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0.0
+              }
+            }
+          }, {
+            "value" : "ml/min",
+            "label" : "ml/min",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0.0
+              }
+            }
+          }, {
+            "value" : "ml/s",
+            "label" : "ml/s",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0.0
+              }
+            }
+          }, {
+            "value" : "ml/h",
+            "label" : "ml/h",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0.0
+              }
+            }
+          } ]
+        } ]
+      }, {
+        "id" : "text_value",
+        "localizedName" : "Administration rate",
+        "rmType" : "DV_TEXT",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "nb" : "Administreringshastighet",
+          "pt-br" : "Taxa de administração",
+          "de" : "Verabreichungsrate",
+          "sv" : "Administrationshastighet",
+          "en" : "Administration rate"
+        },
+        "localizedDescriptions" : {
+          "nb" : "Hastigheten som skal benyttes under administreringen, for eksempel ved en infusjon.",
+          "pt-br" : "A taxa na qual o medicamento, como uma infusão, deve ser administrado.",
+          "de" : "Die Rate, mit der das Medikament, beispielsweise eine Infusion, verabreicht werden soll.",
+          "sv" : "Den hastighet med vilken läkemedlet, såsom en infusion, ska administreras.",
+          "en" : "The rate at which the medication, such as an infusion, is to be administered."
+        },
+        "aqlPath" : "/items[at0134]/value",
+        "inputs" : [ {
+          "type" : "TEXT"
+        } ]
+      } ]
+    }, {
+      "id" : "administration_duration",
+      "name" : "Administration duration",
+      "localizedName" : "Administration duration",
+      "rmType" : "ELEMENT",
+      "nodeId" : "at0102",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "nb" : "Administreringsvarighet",
+        "pt-br" : "Duração da administração",
+        "de" : "Verabreichungsdauer",
+        "sv" : "Administrationens varaktighet",
+        "en" : "Administration duration"
+      },
+      "localizedDescriptions" : {
+        "nb" : "Tidsperioden en enkelt dose av legemiddelet eller vaksinen skal administreres over.",
+        "pt-br" : "O período de tempo no qual uma única dose do medicamento ou vacina deve ser administrado.",
+        "de" : "Der Zeitraum, in dem eine Einzeldosis des Medikaments oder Impfstoffs verabreicht werden soll.",
+        "sv" : "Tiden under vilken en enda dos av läkemedlet eller vaccinet ska administreras.",
+        "en" : "The period of time over which a single dose of the medication or vaccine should be administered."
+      },
+      "annotations" : {
+        "comment" : "For example: 'Administer over 10 minutes'."
+      },
+      "aqlPath" : "/items[at0102]",
+      "children" : [ {
+        "id" : "duration_value",
+        "localizedName" : "Administration duration",
+        "rmType" : "DV_DURATION",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "nb" : "Administreringsvarighet",
+          "pt-br" : "Duração da administração",
+          "de" : "Verabreichungsdauer",
+          "sv" : "Administrationens varaktighet",
+          "en" : "Administration duration"
+        },
+        "localizedDescriptions" : {
+          "nb" : "Tidsperioden en enkelt dose av legemiddelet eller vaksinen skal administreres over.",
+          "pt-br" : "O período de tempo no qual uma única dose do medicamento ou vacina deve ser administrado.",
+          "de" : "Der Zeitraum, in dem eine Einzeldosis des Medikaments oder Impfstoffs verabreicht werden soll.",
+          "sv" : "Tiden under vilken en enda dos av läkemedlet eller vaccinet ska administreras.",
+          "en" : "The period of time over which a single dose of the medication or vaccine should be administered."
+        },
+        "aqlPath" : "/items[at0102]/value",
+        "inputs" : [ {
+          "suffix" : "day",
+          "type" : "INTEGER",
+          "validation" : {
+            "range" : {
+              "minOp" : ">=",
+              "min" : 0
+            }
+          }
+        }, {
+          "suffix" : "hour",
+          "type" : "INTEGER",
+          "validation" : {
+            "range" : {
+              "minOp" : ">=",
+              "min" : 0
+            }
+          }
+        }, {
+          "suffix" : "minute",
+          "type" : "INTEGER",
+          "validation" : {
+            "range" : {
+              "minOp" : ">=",
+              "min" : 0
+            }
+          }
+        }, {
+          "suffix" : "second",
+          "type" : "INTEGER",
+          "validation" : {
+            "range" : {
+              "minOp" : ">=",
+              "min" : 0
+            }
+          }
+        } ]
+      }, {
+        "id" : "interval_of_duration_value",
+        "localizedName" : "Administration duration",
+        "rmType" : "DV_INTERVAL<DV_DURATION>",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "nb" : "Administreringsvarighet",
+          "pt-br" : "Duração da administração",
+          "de" : "Verabreichungsdauer",
+          "sv" : "Administrationens varaktighet",
+          "en" : "Administration duration"
+        },
+        "localizedDescriptions" : {
+          "nb" : "Tidsperioden en enkelt dose av legemiddelet eller vaksinen skal administreres over.",
+          "pt-br" : "O período de tempo no qual uma única dose do medicamento ou vacina deve ser administrado.",
+          "de" : "Der Zeitraum, in dem eine Einzeldosis des Medikaments oder Impfstoffs verabreicht werden soll.",
+          "sv" : "Tiden under vilken en enda dos av läkemedlet eller vaccinet ska administreras.",
+          "en" : "The period of time over which a single dose of the medication or vaccine should be administered."
+        },
+        "aqlPath" : "/items[at0102]/value",
+        "children" : [ {
+          "id" : "lower",
+          "rmType" : "DV_DURATION",
+          "nodeId" : "",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/items[at0102]/value/lower",
+          "inputs" : [ {
+            "suffix" : "day",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            }
+          }, {
+            "suffix" : "hour",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            }
+          }, {
+            "suffix" : "minute",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            }
+          }, {
+            "suffix" : "second",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            }
+          } ]
+        }, {
+          "id" : "upper",
+          "rmType" : "DV_DURATION",
+          "nodeId" : "",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/items[at0102]/value/upper",
+          "inputs" : [ {
+            "suffix" : "day",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            }
+          }, {
+            "suffix" : "hour",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            }
+          }, {
+            "suffix" : "minute",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            }
+          }, {
+            "suffix" : "second",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            }
+          } ]
+        } ]
+      } ]
+    }, {
+      "id" : "alternate_dose",
+      "name" : "Alternate dose",
+      "localizedName" : "Alternate dose",
+      "rmType" : "ELEMENT",
+      "nodeId" : "at0176",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "nb" : "Alternativ dose",
+        "pt-br" : "*Alternate dose (en)",
+        "de" : "Alternative Dosis",
+        "sv" : "*Alternate dose (en)",
+        "en" : "Alternate dose"
+      },
+      "localizedDescriptions" : {
+        "nb" : "En alternativ representasjon av legemiddelmengden (dosen) administrert på ett tidspunkt.",
+        "pt-br" : "*An alternate representation of the value of the amount of medication administered at one time. (en)",
+        "de" : "Eine alternative Darstellung vom Wert der verabreichten Medikation zu einem Zeitpunkt.",
+        "sv" : "*An alternate representation of the value of the amount of medication administered at one time. (en)",
+        "en" : "An alternate representation of the amount of medication administered at one time."
+      },
+      "annotations" : {
+        "comment" : "For example, can be used to represent a unit-dose based value such as 'tabs', when the Dose amount is expressed as an SI unit such as 'mg', or where it is required to express the total volume of an infusion as well as the amount of the active ingredient."
+      },
+      "aqlPath" : "/items[at0176]",
+      "children" : [ {
+        "id" : "quantity_value",
+        "localizedName" : "Alternate dose",
+        "rmType" : "DV_QUANTITY",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "nb" : "Alternativ dose",
+          "pt-br" : "*Alternate dose (en)",
+          "de" : "Alternative Dosis",
+          "sv" : "*Alternate dose (en)",
+          "en" : "Alternate dose"
+        },
+        "localizedDescriptions" : {
+          "nb" : "En alternativ representasjon av legemiddelmengden (dosen) administrert på ett tidspunkt.",
+          "pt-br" : "*An alternate representation of the value of the amount of medication administered at one time. (en)",
+          "de" : "Eine alternative Darstellung vom Wert der verabreichten Medikation zu einem Zeitpunkt.",
+          "sv" : "*An alternate representation of the value of the amount of medication administered at one time. (en)",
+          "en" : "An alternate representation of the amount of medication administered at one time."
+        },
+        "aqlPath" : "/items[at0176]/value",
+        "inputs" : [ {
+          "suffix" : "magnitude",
+          "type" : "DECIMAL"
+        }, {
+          "suffix" : "unit",
+          "type" : "CODED_TEXT"
+        } ]
+      }, {
+        "id" : "interval_of_quantity_value",
+        "localizedName" : "Alternate dose",
+        "rmType" : "DV_INTERVAL<DV_QUANTITY>",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "nb" : "Alternativ dose",
+          "pt-br" : "*Alternate dose (en)",
+          "de" : "Alternative Dosis",
+          "sv" : "*Alternate dose (en)",
+          "en" : "Alternate dose"
+        },
+        "localizedDescriptions" : {
+          "nb" : "En alternativ representasjon av legemiddelmengden (dosen) administrert på ett tidspunkt.",
+          "pt-br" : "*An alternate representation of the value of the amount of medication administered at one time. (en)",
+          "de" : "Eine alternative Darstellung vom Wert der verabreichten Medikation zu einem Zeitpunkt.",
+          "sv" : "*An alternate representation of the value of the amount of medication administered at one time. (en)",
+          "en" : "An alternate representation of the amount of medication administered at one time."
+        },
+        "aqlPath" : "/items[at0176]/value",
+        "children" : [ {
+          "id" : "upper",
+          "rmType" : "DV_QUANTITY",
+          "nodeId" : "",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/items[at0176]/value/upper",
+          "inputs" : [ {
+            "suffix" : "magnitude",
+            "type" : "DECIMAL"
+          }, {
+            "suffix" : "unit",
+            "type" : "CODED_TEXT"
+          } ]
+        }, {
+          "id" : "lower",
+          "rmType" : "DV_QUANTITY",
+          "nodeId" : "",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/items[at0176]/value/lower",
+          "inputs" : [ {
+            "suffix" : "magnitude",
+            "type" : "DECIMAL"
+          }, {
+            "suffix" : "unit",
+            "type" : "CODED_TEXT"
+          } ]
+        } ]
+      } ]
+    } ]
+  }
+}

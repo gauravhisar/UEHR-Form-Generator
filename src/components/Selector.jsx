@@ -1,19 +1,17 @@
-export default function LangSelector({  ln, setLanguage, langs }) {
-  const onLanguageChangeHandler = (e) => {
-    setLanguage(e.target.value);
-  };
+export default function Selector({  value, onValueChangeHandler, options }) {
+  
 
   return (
     <select
       className="form-select"
-      value={ln}
-      onChange={onLanguageChangeHandler}
+      value={value}
+      onChange={onValueChangeHandler}
       aria-label="Default select example"
     >
-      {langs.map((lang) => {
+      {options.map((option) => {
         return (
-          <option key={lang} value={lang}>
-            {lang}
+          <option key={option} value={option}>
+            {option}
           </option>
         );
       })}

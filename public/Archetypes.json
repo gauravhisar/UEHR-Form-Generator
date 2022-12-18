@@ -1,0 +1,18 @@
+{
+  "Action": ["Health Education", "Medication"],
+  "Cluster": ["Anatomical Location", "Anatomical Location Circle", "Dosage"],
+  "Composition": ["Health Summary", "Medication"],
+  "Evaluation": ["Alcohol Consumption Summary", "Health Risk", "Menstruation Summary"],
+  "Instruction": [
+    "Medication Order",
+    "Supplemental Oxygen",
+    "Transfusion Order"
+  ],
+  "Observation": [
+    "Blood Pressure",
+    "ECG",
+    "Pulse Oximetry",
+    "Respiration",
+    "Spirometry"
+  ]
+}

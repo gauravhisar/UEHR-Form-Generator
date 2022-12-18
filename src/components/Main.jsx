@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import InputComp from "./InputComp";
-import LangSelector from "./Selector";
+import Selector from "./Selector";
 
 
 
 export default function Main({archetype, setArchetype, archetypeLoaded, setArchetypeLoaded}) {
   const [ln, setLanguage] = useState("en");
+
+  function onLanguageChangeHandler(e) {
+    setLanguage(e.target.value);
+  }
     
   if (!archetypeLoaded){
     alert("Archetype Not Loaded");
@@ -20,10 +24,10 @@ export default function Main({archetype, setArchetype, archetypeLoaded, setArche
               <h3 style={{ display: "inline" }}>({archetype.tree.rmType})</h3>
             </div>
             <div className="col-sm-2">
-              <LangSelector
-                ln={ln}
-                setLanguage={setLanguage}
-                langs={archetype.languages}
+              <Selector
+                value={ln}
+                onValueChangeHandler={onLanguageChangeHandler}
+                options={archetype.languages}
               />
             </div>
           </div>
@@ -31,40 +35,19 @@ export default function Main({archetype, setArchetype, archetypeLoaded, setArche
           <h1>&nbsp;</h1>
 
           {archetype.tree.children.map((child) => {
-            if (child.rmType.includes("EVENT")) {
-              return (
-                <div key={child.id} className="row py-2">
-                  <div className="col-sm-8">
-                    <div className="card">
-                      <div className="card-body">
-                        <h5 className="card-title pb-2">
-                          {child.localizedNames[ln]
-                            ? child.localizedNames[ln]
-                            : child.id}
-                        </h5>
-                        <div className="card-text">
-                          <ul className="list-group list-group-flush">
-                            {child.children.map((child) => {
-                              return (
-                                <InputComp
-                                  key={child.id}
-                                  ln={ln}
-                                  child={child}
-                                />
-                              );
-                            })}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            } else {
-              return <InputComp key={child.id} ln={ln} child={child} />;
-            }
+              return <InputComp key={child.id} ln={ln} child={child} />
           })}
         </div>
+        <div className="col-sm-12 text-center">
+        <button
+          className="btn btn-secondary"
+          type="button"
+          id="inputGroupFileAddon04"
+          // onClick={handleFileSubmission}
+        >
+          Submit
+        </button>
+      </div>
     </>
   );
 }

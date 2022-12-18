@@ -1,0 +1,556 @@
+{
+  "templateId" : "Anatomical Location Circle",
+  "semVer" : "0.1.0",
+  "version" : "2.3",
+  "defaultLanguage" : "en",
+  "languages" : [ "ar-sy", "sl", "nb", "sv", "en" ],
+  "tree" : {
+    "id" : "anatomical_location_circle",
+    "name" : "Anatomical Location Circle",
+    "localizedName" : "Anatomical Location Circle",
+    "rmType" : "CLUSTER",
+    "nodeId" : "openEHR-EHR-CLUSTER.anatomical_location_circle.v1",
+    "min" : 1,
+    "max" : 1,
+    "localizedNames" : {
+      "ar-sy" : "Anatomical Location Circle",
+      "sl" : "Anatomical Location Circle",
+      "nb" : "Anatomical Location Circle",
+      "sv" : "Anatomical Location Circle",
+      "en" : "Anatomical Location Circle"
+    },
+    "localizedDescriptions" : {
+      "ar-sy" : "*A physical site on or within the human body that is described in terms of the 2D position of the hour hand of a clock, relative to an identified reference point.",
+      "sl" : "*A physical site on or within the human body that is described in terms of the 2D position of the hour hand of a clock, relative to an identified reference point.",
+      "nb" : "Et fysisk sted på eller i menneskekroppen, beskrevet ved retningen og valgfritt avstanden av stedet fra et sentralt landemerke.",
+      "sv" : "En fysisk plats på eller inom människokroppen som beskrivs i termer av riktningen och eventuellt avståndet till platsen från ett centralt landmärke.\r\n\r\n",
+      "en" : "A physical site on or within the human body that is described in terms of the direction, and optionally the distance, of the site from a central landmark."
+    },
+    "aqlPath" : "",
+    "children" : [ {
+      "id" : "reference_direction",
+      "name" : "Reference direction",
+      "localizedName" : "Reference direction",
+      "rmType" : "DV_TEXT",
+      "nodeId" : "at0065",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "ar-sy" : "*Reference direction(en)",
+        "sl" : "*Reference direction(en)",
+        "nb" : "Referanseretning",
+        "sv" : "Referensriktning",
+        "en" : "Reference direction"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*Identification of a single axis or direction which represents the 12 o'clock or 0° position on an imaginary 2D circle superimposed over the body site, as seen by the examiner.",
+        "sl" : "*Identification of a single axis or direction which represents the 12 o'clock or 0° position on an imaginary 2D circle superimposed over the body site, as seen by the examiner.",
+        "nb" : "En enkelt retning som representerer klokken 12 eller 0° på en tenkt sirkel som er plassert over et sted på kroppen, som observert av den som utfører undersøkelsen.",
+        "sv" : "En enda riktning som representerar klockan 12 eller 0° på en imaginär cirkel placerad över en plats på kroppen, som observerats av den person som utför undersökningen.\r\n",
+        "en" : "Identification of a single direction which represents the 12 o'clock or 0° position on an imaginary circle superimposed over the body site, as seen by the examiner."
+      },
+      "annotations" : {
+        "comment" : "For example: the reference axis is commonly towards the head if examining the breast or detail on a skin lesion; towards the perineum if examining the anus in the lithotomy position; or towards the anterior humeral line if examining the humerus."
+      },
+      "aqlPath" : "/items[at0065]/value",
+      "inputs" : [ {
+        "type" : "TEXT"
+      } ]
+    }, {
+      "id" : "centre_landmark",
+      "name" : "Centre landmark",
+      "localizedName" : "Centre landmark",
+      "rmType" : "DV_TEXT",
+      "nodeId" : "at0079",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "ar-sy" : "*Centre landmark(en)",
+        "sl" : "*Centre landmark(en)",
+        "nb" : "Midtpunkt",
+        "sv" : "Mittpunkt",
+        "en" : "Centre landmark"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*",
+        "sl" : "*",
+        "nb" : "Stedet på kroppen som brukes som referansepunkt for midtpunktet i den tenkte sirkelen.",
+        "sv" : "Identifierat kroppsställe som används som mittpunkt för den imaginära cirkeln.",
+        "en" : "Identified body site used as a reference point for centre of the imaginary circle."
+      },
+      "annotations" : {
+        "comment" : "For example: the nipple when examining a breast; or the anus when examining haemorrhoids."
+      },
+      "aqlPath" : "/items[at0079]/value",
+      "inputs" : [ {
+        "type" : "TEXT"
+      } ]
+    }, {
+      "id" : "circular_direction",
+      "name" : "Circular direction",
+      "localizedName" : "Circular direction",
+      "rmType" : "ELEMENT",
+      "nodeId" : "at0061",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "ar-sy" : "*Circular direction(en)",
+        "sl" : "*Circular direction(en)",
+        "nb" : "Sirkulær retning",
+        "sv" : "Cirkulär riktning",
+        "en" : "Circular direction"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*Identification of a single direction by describing it as a position of the hour hand or a number of degrees with respect to the reference direction, as seen by the examiner.",
+        "sl" : "*Identification of a single direction by describing it as a position of the hour hand or a number of degrees with respect to the reference direction, as seen by the examiner.",
+        "nb" : "Retningens vinkel til det fysiske stedet i forhold til referanseretningen, enten som posisjonen av en timeviser på en urskive eller som et antall grader.",
+        "sv" : "Riktningens vinkel mot det fysiska stället i förhållande till referensriktningen, antingen som positionen för en timme på en urtavla eller som ett antal grader.\r\n",
+        "en" : "Identification of the angle of the direction to the physical site relative to the reference direction, either as the position of an hour hand on a clockface or number of degrees."
+      },
+      "annotations" : {
+        "comment" : "For example: the position of haemorrhoids in the anal canal are commonly described at 3 o'clock, 7 o'clock and 11 o'clock. In this situation the perineum is situated at 12 o'clock with patient in the lithotomy position, and regarded as the reference direction. For degrees, positive values are angles in the clockwise direction, while negative values are in the anti-clockwise direction."
+      },
+      "aqlPath" : "/items[at0061]",
+      "children" : [ {
+        "id" : "coded_text_value",
+        "localizedName" : "Circular direction",
+        "rmType" : "DV_CODED_TEXT",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "ar-sy" : "*Circular direction(en)",
+          "sl" : "*Circular direction(en)",
+          "nb" : "Sirkulær retning",
+          "sv" : "Cirkulär riktning",
+          "en" : "Circular direction"
+        },
+        "localizedDescriptions" : {
+          "ar-sy" : "*Identification of a single direction by describing it as a position of the hour hand or a number of degrees with respect to the reference direction, as seen by the examiner.",
+          "sl" : "*Identification of a single direction by describing it as a position of the hour hand or a number of degrees with respect to the reference direction, as seen by the examiner.",
+          "nb" : "Retningens vinkel til det fysiske stedet i forhold til referanseretningen, enten som posisjonen av en timeviser på en urskive eller som et antall grader.",
+          "sv" : "Riktningens vinkel mot det fysiska stället i förhållande till referensriktningen, antingen som positionen för en timme på en urtavla eller som ett antal grader.\r\n",
+          "en" : "Identification of the angle of the direction to the physical site relative to the reference direction, either as the position of an hour hand on a clockface or number of degrees."
+        },
+        "aqlPath" : "/items[at0061]/value",
+        "inputs" : [ {
+          "suffix" : "code",
+          "type" : "CODED_TEXT",
+          "list" : [ {
+            "value" : "at0067",
+            "label" : "One o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*One o'clock(en)",
+              "sl" : "*One o'clock(en)",
+              "nb" : "Klokken 1",
+              "sv" : "Klockan ett",
+              "en" : "One o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the one o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the one o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 1 relativt til referansepunktet.",
+              "sv" : "Kroppsstället är beläget klockan ett i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the one o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0068",
+            "label" : "Two o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Two o'clock(en)",
+              "sl" : "*Two o'clock(en)",
+              "nb" : "Klokken 2",
+              "sv" : "Klockan två",
+              "en" : "Two o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the two o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the two o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 2 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan två i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the two o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0069",
+            "label" : "Three o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Three o'clock(en)",
+              "sl" : "*Three o'clock(en)",
+              "nb" : "Klokken 3",
+              "sv" : "Klockan tre",
+              "en" : "Three o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the three o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the three o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 3 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan tre i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the three o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0070",
+            "label" : "Four o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Four o'clock(en)",
+              "sl" : "*Four o'clock(en)",
+              "nb" : "Klokken 4",
+              "sv" : "Klockan fyra",
+              "en" : "Four o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the four o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the four o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 4 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan fyra i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the four o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0071",
+            "label" : "Five o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Five o'clock(en)",
+              "sl" : "*Five o'clock(en)",
+              "nb" : "Klokken 5",
+              "sv" : "Klockan fem",
+              "en" : "Five o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the five o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the five o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 5 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan fem i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the five o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0072",
+            "label" : "Six o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Six o'clock(en)",
+              "sl" : "*Six o'clock(en)",
+              "nb" : "Klokken 6",
+              "sv" : "Klockan sex",
+              "en" : "Six o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the six o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the six o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 6 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan sex i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the six o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0073",
+            "label" : "Seven o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Seven o'clock(en)",
+              "sl" : "*Seven o'clock(en)",
+              "nb" : "Klokken 7",
+              "sv" : "Klockan sju",
+              "en" : "Seven o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the seven o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the seven o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 7 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan sju i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the seven o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0074",
+            "label" : "Eight o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Eight o'clock(en)",
+              "sl" : "*Eight o'clock(en)",
+              "nb" : "Klokken 8",
+              "sv" : "Klockan åtta",
+              "en" : "Eight o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the eight o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the eight o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 8 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan åtta i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the eight o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0075",
+            "label" : "Nine o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Nine o'clock(en)",
+              "sl" : "*Nine o'clock(en)",
+              "nb" : "Klokken 9",
+              "sv" : "Klockan nio",
+              "en" : "Nine o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the nine o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the nine o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 9 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan nio i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the nine o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0076",
+            "label" : "Ten o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Ten o'clock(en)",
+              "sl" : "*Ten o'clock(en)",
+              "nb" : "Klokken 10",
+              "sv" : "Klockan tio",
+              "en" : "Ten o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the ten o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the ten o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 10 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan tio i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the ten o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0077",
+            "label" : "Eleven o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Eleven o'clock(en)",
+              "sl" : "*Eleven o'clock(en)",
+              "nb" : "Klokken 11",
+              "sv" : "Klockan elva",
+              "en" : "Eleven o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the eleven o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the eleven o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 11 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan elva i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the eleven o'clock position relative to the identified reference point."
+            }
+          }, {
+            "value" : "at0078",
+            "label" : "Twelve o'clock",
+            "localizedLabels" : {
+              "ar-sy" : "*Twelve o'clock(en)",
+              "sl" : "*Twelve o'clock(en)",
+              "nb" : "Klokken 12",
+              "sv" : "Klockan tolv",
+              "en" : "Twelve o'clock"
+            },
+            "localizedDescriptions" : {
+              "ar-sy" : "*The body site is located at the twelve o'clock position relative to the identified reference point.(en)",
+              "sl" : "*The body site is located at the twelve o'clock position relative to the identified reference point.(en)",
+              "nb" : "Kroppsstedet er kl. 12 relativt til referansepunktet.",
+              "sv" : "Kroppsstället ligger vid klockan tolv i förhållande till den identifierade referenspunkten.",
+              "en" : "The body site is located at the twelve o'clock position relative to the identified reference point."
+            }
+          } ]
+        } ]
+      }, {
+        "id" : "duration_value",
+        "localizedName" : "Circular direction",
+        "rmType" : "DV_DURATION",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "ar-sy" : "*Circular direction(en)",
+          "sl" : "*Circular direction(en)",
+          "nb" : "Sirkulær retning",
+          "sv" : "Cirkulär riktning",
+          "en" : "Circular direction"
+        },
+        "localizedDescriptions" : {
+          "ar-sy" : "*Identification of a single direction by describing it as a position of the hour hand or a number of degrees with respect to the reference direction, as seen by the examiner.",
+          "sl" : "*Identification of a single direction by describing it as a position of the hour hand or a number of degrees with respect to the reference direction, as seen by the examiner.",
+          "nb" : "Retningens vinkel til det fysiske stedet i forhold til referanseretningen, enten som posisjonen av en timeviser på en urskive eller som et antall grader.",
+          "sv" : "Riktningens vinkel mot det fysiska stället i förhållande till referensriktningen, antingen som positionen för en timme på en urtavla eller som ett antal grader.\r\n",
+          "en" : "Identification of the angle of the direction to the physical site relative to the reference direction, either as the position of an hour hand on a clockface or number of degrees."
+        },
+        "aqlPath" : "/items[at0061]/value",
+        "inputs" : [ {
+          "suffix" : "hour",
+          "type" : "INTEGER",
+          "validation" : {
+            "range" : {
+              "minOp" : ">=",
+              "min" : 0,
+              "maxOp" : "<=",
+              "max" : 12
+            }
+          }
+        }, {
+          "suffix" : "minute",
+          "type" : "INTEGER",
+          "validation" : {
+            "range" : {
+              "minOp" : ">=",
+              "min" : 0
+            }
+          }
+        } ]
+      }, {
+        "id" : "quantity_value",
+        "localizedName" : "Circular direction",
+        "rmType" : "DV_QUANTITY",
+        "nodeId" : "",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "ar-sy" : "*Circular direction(en)",
+          "sl" : "*Circular direction(en)",
+          "nb" : "Sirkulær retning",
+          "sv" : "Cirkulär riktning",
+          "en" : "Circular direction"
+        },
+        "localizedDescriptions" : {
+          "ar-sy" : "*Identification of a single direction by describing it as a position of the hour hand or a number of degrees with respect to the reference direction, as seen by the examiner.",
+          "sl" : "*Identification of a single direction by describing it as a position of the hour hand or a number of degrees with respect to the reference direction, as seen by the examiner.",
+          "nb" : "Retningens vinkel til det fysiske stedet i forhold til referanseretningen, enten som posisjonen av en timeviser på en urskive eller som et antall grader.",
+          "sv" : "Riktningens vinkel mot det fysiska stället i förhållande till referensriktningen, antingen som positionen för en timme på en urtavla eller som ett antal grader.\r\n",
+          "en" : "Identification of the angle of the direction to the physical site relative to the reference direction, either as the position of an hour hand on a clockface or number of degrees."
+        },
+        "aqlPath" : "/items[at0061]/value",
+        "inputs" : [ {
+          "suffix" : "magnitude",
+          "type" : "DECIMAL",
+          "validation" : {
+            "range" : {
+              "minOp" : ">",
+              "min" : -360.0,
+              "maxOp" : "<",
+              "max" : 360.0
+            }
+          }
+        }, {
+          "suffix" : "unit",
+          "type" : "CODED_TEXT",
+          "list" : [ {
+            "value" : "deg",
+            "label" : "deg",
+            "localizedLabels" : {
+              "ar-sy" : "°",
+              "sl" : "°",
+              "nb" : "°",
+              "sv" : "°",
+              "en" : "°"
+            },
+            "validation" : {
+              "range" : {
+                "minOp" : ">",
+                "min" : -360.0,
+                "maxOp" : "<",
+                "max" : 360.0
+              }
+            }
+          } ]
+        } ]
+      } ]
+    }, {
+      "id" : "distance_from_landmark",
+      "name" : "Distance from landmark",
+      "localizedName" : "Distance from landmark",
+      "rmType" : "DV_QUANTITY",
+      "nodeId" : "at0080",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "ar-sy" : "*Distance from landmark (en)",
+        "sl" : "*Distance from landmark (en)",
+        "nb" : "Avstand fra midtpunktet",
+        "sv" : "Avstånd från mittpunkten",
+        "en" : "Distance from landmark"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*Distance of location from the identified central landmark. (en)",
+        "sl" : "*Distance of location from the identified central landmark. (en)",
+        "nb" : "Avstanden av lokaliseringen fra det beskrevne midtpunktet.",
+        "sv" : "Avstånd till platsen från den identifierade mittpunkten.",
+        "en" : "Distance of location from the identified central landmark."
+      },
+      "aqlPath" : "/items[at0080]/value",
+      "inputs" : [ {
+        "suffix" : "magnitude",
+        "type" : "DECIMAL"
+      }, {
+        "suffix" : "unit",
+        "type" : "CODED_TEXT",
+        "list" : [ {
+          "value" : "cm",
+          "label" : "cm",
+          "validation" : {
+            "range" : {
+              "minOp" : ">=",
+              "min" : 0.0
+            },
+            "precision" : {
+              "minOp" : ">=",
+              "min" : 1,
+              "maxOp" : "<=",
+              "max" : 1
+            }
+          }
+        }, {
+          "value" : "[in_i]",
+          "label" : "[in_i]",
+          "localizedLabels" : {
+            "ar-sy" : "in",
+            "sl" : "in",
+            "nb" : "in",
+            "sv" : "in",
+            "en" : "in"
+          },
+          "validation" : {
+            "range" : {
+              "minOp" : ">=",
+              "min" : 0.0
+            },
+            "precision" : {
+              "minOp" : ">=",
+              "min" : 1,
+              "maxOp" : "<=",
+              "max" : 1
+            }
+          }
+        }, {
+          "value" : "mm",
+          "label" : "mm",
+          "validation" : {
+            "range" : {
+              "minOp" : ">=",
+              "min" : 0.0
+            },
+            "precision" : {
+              "minOp" : ">=",
+              "min" : 1,
+              "maxOp" : "<=",
+              "max" : 1
+            }
+          }
+        } ]
+      } ]
+    }, {
+      "id" : "description",
+      "name" : "Description",
+      "localizedName" : "Description",
+      "rmType" : "DV_TEXT",
+      "nodeId" : "at0023",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "ar-sy" : "*Description(en)",
+        "sl" : "*Description(en)",
+        "nb" : "Beskrivelse",
+        "sv" : "Beskrivning",
+        "en" : "Description"
+      },
+      "localizedDescriptions" : {
+        "ar-sy" : "*Narrative description that can be used to further refine and support structured data about the circular location. (en)",
+        "sl" : "*Narrative description that can be used to further refine and support structured data about the circular location. (en)",
+        "nb" : "Fritekstbeskrivelse som kan brukes for å ytterligere presisere og støtte den sirkulære lokaliseringen.",
+        "sv" : "Fritextbeskrivning som kan användas för att ytterligare specificera detaljer om det cirkulära stället.",
+        "en" : "Narrative description that can be used to further refine and support structured data about the circular location."
+      },
+      "aqlPath" : "/items[at0023]/value",
+      "inputs" : [ {
+        "type" : "TEXT"
+      } ]
+    } ]
+  }
+}
