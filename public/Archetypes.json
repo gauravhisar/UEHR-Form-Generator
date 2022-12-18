@@ -5,7 +5,7 @@
   "Evaluation": ["Alcohol Consumption Summary", "Health Risk", "Menstruation Summary"],
   "Instruction": [
     "Medication Order",
-    "Supplemental Oxygen",
+    "Supplemental Oxygen Order",
     "Transfusion Order"
   ],
   "Observation": [
