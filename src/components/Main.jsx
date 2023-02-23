@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import InputComp from "./InputComp";
 import Selector from "./Selector";
 
@@ -6,9 +7,13 @@ import Selector from "./Selector";
 
 export default function Main({archetype, setArchetype, archetypeLoaded, setArchetypeLoaded}) {
   const [ln, setLanguage] = useState("en");
+  const navigate = useNavigate();
 
   function onLanguageChangeHandler(e) {
     setLanguage(e.target.value);
+  }
+  function handleFileSubmission(e) {
+    navigate("/submission")
   }
     
   if (!archetypeLoaded){
@@ -43,7 +48,7 @@ export default function Main({archetype, setArchetype, archetypeLoaded, setArche
           className="btn btn-secondary"
           type="button"
           id="inputGroupFileAddon04"
-          // onClick={handleFileSubmission}
+          onClick={handleFileSubmission}
         >
           Submit
         </button>

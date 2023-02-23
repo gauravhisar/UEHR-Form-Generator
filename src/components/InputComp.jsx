@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import Selector from "./Selector";
 
-function Plaintext({ index, input, value, setValue }) {
-  function onValueChangeHandler(e) {
-    setValue((prev) => {
-      let a = [...prev];
-      a[index] = e.target.value;
-      return a;
-    });
+function Plaintext({input}) {
+  const [value, setValue] = useState("")
+  input.value = ""
+  async function onValueChangeHandler(e) {
+    await setValue(e.target.value);
+    input.value = e.target.value;
   }
   return (
     <input
@@ -15,83 +14,124 @@ function Plaintext({ index, input, value, setValue }) {
       className="form-control"
       aria-label="Sizing example input"
       aria-describedby="inputGroup-sizing-sm"
-      value={value[index]}
+      value={value}
       onChange={onValueChangeHandler}
     />
   );
 }
-function CodedText({ index, ln, input, value, setValue }) {
-  function onValueChangeHandler(e) {
-    setValue((prev) => {
-      let a = [...prev];
-      a[index] = e.target.value;
-      return a;
-    });
-  }
+function CodedText({ ln, input }) {
   let options = input.list.map((ele) =>
     ele.localizedLabels ? ele.localizedLabels[ln] : ele.label
   );
+  const [ value, setValue ] = useState(options[0])
+  input.value = options[0]
+
+  async function onValueChangeHandler(e) {
+    await setValue(e.target.value);
+    input.value = e.target.value;
+  }
+  
   return (
     <Selector
-      value={value[index]}
+      value={value}
       onValueChangeHandler={onValueChangeHandler}
       options={options}
     />
   );
 }
 
+function DateTime({input}) {
+  const [value, setValue] = useState("")
+  input.value = ""
+  async function onValueChangeHandler(e) {
+    await setValue(e.target.value);
+    input.value = e.target.value;
+  }
+  return (
+    <input
+      type="datetime-local"
+      className="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-sm"
+      value={value}
+      onChange={onValueChangeHandler}
+    />
+  );
+}
+
+function Decimal({input}) {
+  const [value, setValue] = useState("")
+  input.value = ""
+  async function onValueChangeHandler(e) {
+    await setValue(e.target.value);
+    input.value = e.target.value;
+  }
+  return (
+    <input
+      type="number"
+      className="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-sm"
+      value={value}
+      onChange={onValueChangeHandler}
+    />
+  );
+}
+
 function SubInput({ index, ln, input, value, setValue }) {
   console.log(input.type)
+
+  if (input.type === "DECIMAL"){
+    return <Decimal
+    key={index}
+    index={index}
+    input={input}
+    ln={ln}
+  />
+  }
+  
   if (input.type === "CODED_TEXT") {
-    return (
-      <CodedText
+    return <CodedText
         key={index}
         index={index}
         input={input}
         ln={ln}
-        value={value}
-        setValue={setValue}
       />
-    );
-  } else if (input.type === "TEXT") {
+  } 
+  
+  if (input.type === "TEXT") {
     return (
       <Plaintext
         key={index}
         index={index}
         input={input}
         ln={ln}
-        value={value}
-        setValue={setValue}
       />
     );
   }
+
+  if (input.type === "DATETIME") {
+    return (
+      <DateTime
+        key={index}
+        index={index}
+        input={input}
+        ln={ln}
+      />
+    );
+  }
+
+
   return (
     <Plaintext
       key={index}
       index={index}
       input={input}
       ln={ln}
-      value={value}
-      setValue={setValue}
     />
   );
 }
 export default function InputComp({ child, ln }) {
-  const [value, setValue] = useState([
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  ]);
   if (
     [
       "EVENT",
@@ -146,18 +186,13 @@ export default function InputComp({ child, ln }) {
             return (
               <SubInput
                 key={index}
-                index={index}
                 input={input}
                 ln={ln}
-                value={value}
-                setValue={setValue}
               />
             );
           })
         ) : (
-          <>
-            <Plaintext ln={ln} index={0} value={value} setValue={setValue} />
-          </>
+            <Plaintext ln={ln} input = {child}/>
         )}
       </div>
     </>
