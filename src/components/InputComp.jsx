@@ -90,7 +90,7 @@ function SubInput({ index, ln, input, value, setValue }) {
   />
   }
   
-  if (input.type === "CODED_TEXT") {
+  if (input.type === "CODED_TEXT" && input.list) {
     return <CodedText
         key={index}
         index={index}
@@ -135,7 +135,7 @@ export default function InputComp({ child, ln }) {
   if (
     [
       "EVENT",
-      "INTERNAL_EVENT",
+      "INTERVAL_EVENT",
       "CLUSTER",
       "ELEMENT",
       "DV_INTERVAL",

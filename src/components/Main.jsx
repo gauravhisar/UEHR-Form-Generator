@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputComp from "./InputComp";
-import Selector from "./Selector";
+import {LangSelector} from "./Selector";
+
 
 
 
@@ -29,7 +30,7 @@ export default function Main({archetype, setArchetype, archetypeLoaded, setArche
               <h3 style={{ display: "inline" }}>({archetype.tree.rmType})</h3>
             </div>
             <div className="col-sm-2">
-              <Selector
+              <LangSelector
                 value={ln}
                 onValueChangeHandler={onLanguageChangeHandler}
                 options={archetype.languages}
