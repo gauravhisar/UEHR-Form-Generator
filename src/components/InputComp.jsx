@@ -80,56 +80,23 @@ function Decimal({input}) {
 
 function SubInput({ index, ln, input, value, setValue }) {
   console.log(input.type)
+  const fieldTypes = {
+    "DECIMAL": <Decimal key={index} index={index} input={input} ln={ln}/>,
+    "CODED_TEXT": input.list ? <CodedText key={index} index={index} input={input} ln={ln}/> 
+                      : <Plaintext key={index} input={input} ln={ln}/>,
+    "TEXT": <Plaintext key={index} index={index} input={input} ln={ln}/>,
+    "DATETIME": <DateTime key={index} index={index} input={input} ln={ln}/>
 
-  if (input.type === "DECIMAL"){
-    return <Decimal
-    key={index}
-    index={index}
-    input={input}
-    ln={ln}
-  />
-  }
-  
-  if (input.type === "CODED_TEXT" && input.list) {
-    return <CodedText
-        key={index}
-        index={index}
-        input={input}
-        ln={ln}
-      />
-  } 
-  
-  if (input.type === "TEXT") {
-    return (
-      <Plaintext
-        key={index}
-        index={index}
-        input={input}
-        ln={ln}
-      />
-    );
-  }
-
-  if (input.type === "DATETIME") {
-    return (
-      <DateTime
-        key={index}
-        index={index}
-        input={input}
-        ln={ln}
-      />
-    );
-  }
-
-
+  };
   return (
-    <Plaintext
-      key={index}
-      index={index}
-      input={input}
-      ln={ln}
-    />
+    <>
+  {/* <div className="col-sm-2"> */}
+    {fieldTypes[input.type] ? fieldTypes[input.type] : <Plaintext index={index} input={input} ln={ln} />}
+   {/* </div> */}
+  </>
   );
+
+  // return 
 }
 export default function InputComp({ child, ln }) {
   if (
@@ -174,13 +141,13 @@ export default function InputComp({ child, ln }) {
   return (
     <>
       <div key={child.id} className="input-group input-group-sm mb-3">
-        <span className="input-group-text" id="inputGroup-sizing-sm">
+        <button className="input-group-text" id="inputGroup-sizing-sm">
           {child.localizedNames && child.localizedNames[ln]
             ? child.localizedNames[ln]
             : child.name
             ? child.name
             : child.id}
-        </span>
+        </button>
         {child.inputs ? (
           child.inputs.map((input, index) => {
             return (
@@ -192,8 +159,11 @@ export default function InputComp({ child, ln }) {
             );
           })
         ) : (
-            <Plaintext ln={ln} input = {child}/>
+            <SubInput ln={ln} input = {child}/>
         )}
+
+
+        
       </div>
     </>
   );
