@@ -1,50 +1,104 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import InputComp from "./InputComp";
-import {LangSelector} from "./Selector";
+import Selector from "./Selector";
+
+export default function Main({
+  setArchetype,
+  archetypeLoaded,
+  setArchetypeLoaded,
+}) {
+
+  // have all archetypes
+  const [allArchetypes, setAllArchetypes] = useState({});
 
 
+  // state of dropdown list
+  const [availableRmTypes, setAvailableRmTypes] = useState([]);
+  const [availableArchetypes, setAvailableArchetypes] = useState([]);
 
+  // state of two input fields
+  const [rmType, setRmType] = useState("");
+  const [archetypeId, setArchetypeId] = useState("");
 
-export default function Main({archetype, setArchetype, archetypeLoaded, setArchetypeLoaded}) {
-  const [ln, setLanguage] = useState("en");
+  // for url navigation
   const navigate = useNavigate();
 
-  function onLanguageChangeHandler(e) {
-    setLanguage(e.target.value);
+  useEffect(() => {
+    function fetchAvailableArchetypes() {
+      fetch(`Archetypes.json`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((Archetypes) => {
+          return Archetypes.json();
+        })
+        .then((Archetypes) => {
+          setAvailableRmTypes(Object.keys(Archetypes));
+          setRmType(Object.keys(Archetypes)[0]);
+          setAvailableArchetypes(Archetypes[Object.keys(Archetypes)[0]]);
+          setArchetypeId(Archetypes[Object.keys(Archetypes)[0]][0]);
+          setAllArchetypes({ ...Archetypes });
+        });
+    }
+    fetchAvailableArchetypes();
+  }, []);
+
+  
+
+  function handleFileSubmission() {
+    navigate(`/archetype/${rmType}/${archetypeId}`)
   }
-  function handleFileSubmission(e) {
-    navigate("/submission")
+
+  function onRmTypeChangeHandler(e) {
+    setRmType(e.target.value);
+    setAvailableArchetypes(allArchetypes[e.target.value]);
+    setArchetypeId(allArchetypes[e.target.value][0]);
   }
-    
-  if (!archetypeLoaded){
-    alert("Archetype Not Loaded");
-    return <div></div>
+
+  function onArchetypeChangeHandler(e) {
+    setArchetypeId(e.target.value);
   }
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      handleFileSubmission();
+    }
+  }
+
   return (
     <>
-        <div className="px-2">
-          <div className="row py-2 border-bottom border-secondary rounded-5 rounded-top bg-light">
-            <div className="col-sm-10">
-              <h2 style={{ display: "inline" }}>{archetype.tree.name}</h2>
-              <h3 style={{ display: "inline" }}>({archetype.tree.rmType})</h3>
-            </div>
-            <div className="col-sm-2">
-              <LangSelector
-                value={ln}
-                onValueChangeHandler={onLanguageChangeHandler}
-                options={archetype.languages}
-              />
-            </div>
+      <div className="row border rounded m-2"  onKeyDown={handleKeyDown}>
+        <div className="col-sm-5">
+          <div className="input-group m-3">
+            <span className="input-group-text" id="basic-addon1">
+              Resource Type
+            </span>
+
+            <Selector
+              value={rmType}
+              onValueChangeHandler={onRmTypeChangeHandler}
+              options={availableRmTypes}
+            />
           </div>
-
-          <h1>&nbsp;</h1>
-
-          {archetype.tree.children.map((child) => {
-              return <InputComp key={child.id} ln={ln} child={child} />
-          })}
         </div>
-        <div className="col-sm-12 text-center">
+        <div className="col-sm-5">
+          <div className="input-group m-3" onKeyDown={handleKeyDown}>
+            <span className="input-group-text" id="basic-addon1">
+              Archetype File
+            </span>
+
+            <Selector
+              value={archetypeId}
+              onValueChangeHandler={onArchetypeChangeHandler}
+              options={availableArchetypes}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="col-sm-10 text-center">
         <button
           className="btn btn-secondary"
           type="button"
