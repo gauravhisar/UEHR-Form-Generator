@@ -7,7 +7,6 @@ app.use(express.json());
 const port = 5000
 
 app.post('/',async (req,resp)=>{
-  console.log("Hello");
   let data = await dbConnect();
   let result = await data.insertOne(req.body);
   resp.send(result);
