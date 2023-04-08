@@ -1,0 +1,15 @@
+{
+  "name": "uehrbackend",
+  "version": "1.0.0",
+  "description": "Backend service for UEHR to store form data in mongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kishan Srivastava",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^5.2.0"
+  }
+}

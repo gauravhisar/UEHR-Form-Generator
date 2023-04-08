@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import InputComp from "./InputComp";
 import {LangSelector} from "./Selector";
@@ -16,8 +17,8 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
   function onLanguageChangeHandler(e) {
     setLanguage(e.target.value);
   }
-  function handleFileSubmission(e) {
-    navigate("submission/")
+  async function handleFileSubmission(e) {
+    const response = await axios.post("http://localhost:5000/",archetype);
   }
 
   useEffect(() => {
