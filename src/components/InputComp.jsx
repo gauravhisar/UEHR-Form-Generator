@@ -1,51 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Selector from "./Selector";
 
-function Plaintext({input}) {
-  const [value, setValue] = useState("")
+
+
+
+function Plaintext({input, value, setValue, enabled}) {
   input.value = ""
-  async function onValueChangeHandler(e) {
-    await setValue(e.target.value);
+
+  function onValueChangeHandler(e) {
     input.value = e.target.value;
+    setValue(e.target.value);
   }
+  
   return (
     <input
       type="text"
       className="form-control"
       aria-label="Sizing example input"
       aria-describedby="inputGroup-sizing-sm"
+      disabled = {!enabled}
       value={value}
       onChange={onValueChangeHandler}
     />
   );
 }
-function CodedText({ ln, input }) {
+
+function CodedText({ ln, input, value, setValue, enabled }) {
   let options = input.list.map((ele) =>
     ele.localizedLabels ? ele.localizedLabels[ln] : ele.label
   );
-  const [ value, setValue ] = useState(options[0])
   input.value = options[0]
 
-  async function onValueChangeHandler(e) {
-    await setValue(e.target.value);
+  useEffect(()=>setValue(options[0]), [setValue, options])
+
+  function onValueChangeHandler(e) {
     input.value = e.target.value;
+    setValue(e.target.value);
   }
   
   return (
     <Selector
       value={value}
       onValueChangeHandler={onValueChangeHandler}
+      enabled = {enabled}
       options={options}
     />
   );
 }
 
-function DateTime({input}) {
-  const [value, setValue] = useState("")
+function DateTime({input, value, setValue, enabled}) {
   input.value = ""
-  async function onValueChangeHandler(e) {
-    await setValue(e.target.value);
+  function onValueChangeHandler(e) {
     input.value = e.target.value;
+    setValue(e.target.value);
   }
   return (
     <input
@@ -53,18 +60,18 @@ function DateTime({input}) {
       className="form-control"
       aria-label="Sizing example input"
       aria-describedby="inputGroup-sizing-sm"
+      disabled = {!enabled}
       value={value}
       onChange={onValueChangeHandler}
     />
   );
 }
 
-function Decimal({input}) {
-  const [value, setValue] = useState("")
-  input.value = ""
-  async function onValueChangeHandler(e) {
-    await setValue(e.target.value);
+function Decimal({input, value, setValue, enabled}) {
+  input.value = value
+  function onValueChangeHandler(e) {
     input.value = e.target.value;
+    setValue(e.target.value);
   }
   return (
     <input
@@ -72,26 +79,35 @@ function Decimal({input}) {
       className="form-control"
       aria-label="Sizing example input"
       aria-describedby="inputGroup-sizing-sm"
+      disabled = {!enabled}
       value={value}
       onChange={onValueChangeHandler}
     />
   );
 }
 
-function SubInput({ index, ln, input, value, setValue }) {
-  console.log(input.type)
+function SubInput({ index, ln, input, enabled }) {
+  const [value, setValue] = useState("")
+
+  useEffect(()=>{
+    if (!enabled){
+      input.value = ""
+      setValue("")
+    }
+  }, [enabled, input, setValue])
+
   const fieldTypes = {
-    "DECIMAL": <Decimal key={index} index={index} input={input} ln={ln}/>,
-    "CODED_TEXT": input.list ? <CodedText key={index} index={index} input={input} ln={ln}/> 
-                      : <Plaintext key={index} input={input} ln={ln}/>,
-    "TEXT": <Plaintext key={index} index={index} input={input} ln={ln}/>,
-    "DATETIME": <DateTime key={index} index={index} input={input} ln={ln}/>
+    "DECIMAL": <Decimal key={index} index={index} input={input} ln={ln} enabled={enabled} value = {value} setValue = {setValue}/>,
+    "CODED_TEXT": input.list ? <CodedText key={index} index={index} input={input} ln={ln} enabled={enabled} value={value} setValue={setValue}/> 
+                      : <Plaintext key={index} input={input} ln={ln} enabled={enabled} value = {value} setValue = {setValue}/>,
+    "TEXT": <Plaintext key={index} index={index} input={input} ln={ln} enabled={enabled} value = {value} setValue = {setValue}/>,
+    "DATETIME": <DateTime key={index} index={index} input={input} ln={ln} enabled={enabled} value = {value} setValue = {setValue}/>
 
   };
   return (
     <>
   {/* <div className="col-sm-2"> */}
-    {fieldTypes[input.type] ? fieldTypes[input.type] : <Plaintext index={index} input={input} ln={ln} />}
+    {fieldTypes[input.type] ? fieldTypes[input.type] : <Plaintext index={index} input={input} ln={ln} enabled={enabled}/>}
    {/* </div> */}
   </>
   );
@@ -99,17 +115,15 @@ function SubInput({ index, ln, input, value, setValue }) {
   // return 
 }
 export default function InputComp({ child, ln }) {
-  if (
-    [
-      "EVENT",
-      "INTERVAL_EVENT",
-      "CLUSTER",
-      "ELEMENT",
-      "DV_INTERVAL",
-      "ISM_TRANSITION",
-      "ACTIVITY"
-    ].indexOf(child.rmType) >= 0
-  ) {
+  const [enabled, setEnabled] = useState(true)
+
+  async function handleButtonToggle(e) {
+    await setEnabled(prev=>!prev)
+  }
+
+
+  if (child.children !== undefined)
+   {
     return (
       <>
         <div key={child.id} className="row py-2">
@@ -141,29 +155,25 @@ export default function InputComp({ child, ln }) {
   return (
     <>
       <div key={child.id} className="input-group input-group-sm mb-3">
-        <button className="input-group-text" id="inputGroup-sizing-sm">
+        <button 
+        className="input-group-text"
+        id="inputGroup-sizing-sm"
+        aria-disabled={!enabled}
+        onClick={handleButtonToggle}
+        >
+
           {child.localizedNames && child.localizedNames[ln]
             ? child.localizedNames[ln]
             : child.name
             ? child.name
             : child.id}
+
         </button>
-        {child.inputs ? (
-          child.inputs.map((input, index) => {
-            return (
-              <SubInput
-                key={index}
-                input={input}
-                ln={ln}
-              />
-            );
-          })
-        ) : (
-            <SubInput ln={ln} input = {child}/>
-        )}
+        {child.inputs ? child.inputs.map((input, index) => 
+          <SubInput key={index} input={input} enabled = {enabled} ln={ln} />
+          ) : <SubInput ln={ln} input = {child} enabled = {enabled}/>
+        }
 
-
-        
       </div>
     </>
   );

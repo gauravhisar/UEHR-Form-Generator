@@ -4,7 +4,8 @@
   "description": "Backend service for UEHR to store form data in mongoDB",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api.js"
   },
   "author": "Kishan Srivastava",
   "license": "ISC",

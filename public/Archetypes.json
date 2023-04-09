@@ -1,7 +1,7 @@
 {
   "Action": ["Health Education", "Medication"],
   "Cluster": ["Anatomical Location", "Anatomical Location Circle", "Dosage"],
-  "Composition": ["Health Summary", "Medication"],
+  "Composition": ["Health Summary", "Medication List"],
   "Evaluation": ["Alcohol Consumption Summary", "Health Risk", "Menstruation Summary"],
   "Instruction": [
     "Medication Order",

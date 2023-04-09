@@ -1,24 +1,48 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import InputComp from "./InputComp";
 import {LangSelector} from "./Selector";
-
-
 
 
 export default function Form({archetype, setArchetype, archetypeLoaded, setArchetypeLoaded}) {
   const [ln, setLanguage] = useState("en")
   const {rmType, archetypeId} = useParams()
-  const navigate = useNavigate();
 
+  function filterUtil(node){
+    if (node.children !== undefined){
+      let data = {};
+      data["children"] = node.children.map(child => filterUtil(child))
+      return data;
+    } else {
+      if (node.inputs) {
+        let data = {}
+        data["inputs"] = node.inputs.map(input => input.value)
+        return data
+      }
+      else {
+        return node.value
+      }
+    }
+  }
   
+  function filter(archetype) {
+    console.log(archetype)
+    const data = {};
+    data["archetypeId"] = archetype.tree.id;
+    data["name"] = archetype.tree["name"];
+    data["rmType"] = archetype.tree.rmType;
+    data["ln"] = ln;
+    data["data"] = filterUtil(archetype.tree);
+    return data;
+  }
+
+  async function handleFileSubmission(e) {
+    const response = await axios.post("http://localhost:5001/",filter(archetype));
+  }
 
   function onLanguageChangeHandler(e) {
     setLanguage(e.target.value);
-  }
-  async function handleFileSubmission(e) {
-    const response = await axios.post("http://localhost:5000/",archetype);
   }
 
   useEffect(() => {
@@ -33,7 +57,6 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
           return res.json();
         })
         .then(async (res) => {
-          console.log(res);
           await setArchetype(res);
           setArchetypeLoaded(true);
         })

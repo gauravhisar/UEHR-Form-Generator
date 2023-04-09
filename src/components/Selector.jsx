@@ -1,6 +1,6 @@
 import ISO6391 from "iso-639-1";
 
-export default function Selector({  value, onValueChangeHandler, options }) {
+export default function Selector({  value, onValueChangeHandler, options, enabled }) {
   
 
   return (
@@ -8,6 +8,7 @@ export default function Selector({  value, onValueChangeHandler, options }) {
       className="form-select"
       value={value}
       onChange={onValueChangeHandler}
+      disabled = {!enabled && enabled !== undefined}
       aria-label="Default select example"
     >
       {options.map((option) => {
