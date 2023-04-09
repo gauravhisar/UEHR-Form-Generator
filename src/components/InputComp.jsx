@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import Selector from "./Selector";
 
 
-
-
 function Plaintext({input, value, setValue, enabled}) {
   input.value = ""
 
-  function onValueChangeHandler(e) {
+  async function onValueChangeHandler(e) {
+    await setValue(e.target.value);
     input.value = e.target.value;
-    setValue(e.target.value);
   }
   
   return (
@@ -28,16 +26,12 @@ function Plaintext({input, value, setValue, enabled}) {
 function CodedText({ ln, input, value, setValue, enabled }) {
   let options = input.list.map((ele) =>
     ele.localizedLabels ? ele.localizedLabels[ln] : ele.label
-  );
-  input.value = options[0]
-
-  useEffect(()=>setValue(options[0]), [setValue, options])
-
-  function onValueChangeHandler(e) {
+  )
+  options = ["", ...options]
+  async function onValueChangeHandler(e) {
+    await setValue(e.target.value);
     input.value = e.target.value;
-    setValue(e.target.value);
   }
-  
   return (
     <Selector
       value={value}
@@ -50,9 +44,9 @@ function CodedText({ ln, input, value, setValue, enabled }) {
 
 function DateTime({input, value, setValue, enabled}) {
   input.value = ""
-  function onValueChangeHandler(e) {
+  async function onValueChangeHandler(e) {
+    await setValue(e.target.value);
     input.value = e.target.value;
-    setValue(e.target.value);
   }
   return (
     <input
@@ -69,9 +63,9 @@ function DateTime({input, value, setValue, enabled}) {
 
 function Decimal({input, value, setValue, enabled}) {
   input.value = value
-  function onValueChangeHandler(e) {
+  async function onValueChangeHandler(e) {
+    await setValue(e.target.value);
     input.value = e.target.value;
-    setValue(e.target.value);
   }
   return (
     <input
@@ -88,12 +82,13 @@ function Decimal({input, value, setValue, enabled}) {
 
 function SubInput({ index, ln, input, enabled }) {
   const [value, setValue] = useState("")
-
   useEffect(()=>{
-    if (!enabled){
-      input.value = ""
-      setValue("")
-    }
+    (async () => {
+      if (!enabled){
+        await setValue("")
+        input.value = ""
+      }
+    })()
   }, [enabled, input, setValue])
 
   const fieldTypes = {
@@ -107,7 +102,7 @@ function SubInput({ index, ln, input, enabled }) {
   return (
     <>
   {/* <div className="col-sm-2"> */}
-    {fieldTypes[input.type] ? fieldTypes[input.type] : <Plaintext index={index} input={input} ln={ln} enabled={enabled}/>}
+    {fieldTypes[input.type] ? fieldTypes[input.type] : <Plaintext index={index} input={input} ln={ln} value = {value} setValue = {setValue} enabled={enabled}/>}
    {/* </div> */}
   </>
   );
@@ -161,19 +156,16 @@ export default function InputComp({ child, ln }) {
         aria-disabled={!enabled}
         onClick={handleButtonToggle}
         >
-
           {child.localizedNames && child.localizedNames[ln]
             ? child.localizedNames[ln]
             : child.name
             ? child.name
             : child.id}
-
         </button>
         {child.inputs ? child.inputs.map((input, index) => 
           <SubInput key={index} input={input} enabled = {enabled} ln={ln} />
           ) : <SubInput ln={ln} input = {child} enabled = {enabled}/>
         }
-
       </div>
     </>
   );

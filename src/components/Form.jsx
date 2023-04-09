@@ -13,15 +13,17 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
     if (node.children !== undefined){
       let data = {};
       data["children"] = node.children.map(child => filterUtil(child))
-      return data;
+      if (data["children"].join("") === "") return ""
+      return data
     } else {
       if (node.inputs) {
         let data = {}
         data["inputs"] = node.inputs.map(input => input.value)
+        if (data["inputs"].join("") === "") return "" 
         return data
       }
       else {
-        return node.value
+        return node.value === undefined ? "" : node.value
       }
     }
   }
