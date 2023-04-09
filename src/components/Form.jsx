@@ -27,7 +27,6 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
   }
   
   function filter(archetype) {
-    console.log(archetype)
     const data = {};
     data["archetypeId"] = archetype.tree.id;
     data["name"] = archetype.tree["name"];
@@ -57,6 +56,18 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
           return res.json();
         })
         .then(async (res) => {
+          res.tree.children = [{ 
+            id: "patient_name",
+            name: "Patient Name",
+            value: ""
+          }, ...res.tree.children]
+
+          res.tree.children = [{ 
+            id: "patient_id",
+            name: "Patient ID",
+            value: ""
+          }, ...res.tree.children]
+          
           await setArchetype(res);
           setArchetypeLoaded(true);
         })
@@ -89,7 +100,6 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
           </div>
 
           <h1>&nbsp;</h1>
-
           {archetype.tree.children.map((child) => {
               return <InputComp key={child.id} ln={ln} child={child} />
           })}
