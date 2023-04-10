@@ -13,8 +13,9 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
   function filterUtil(node){
     if (node.children !== undefined){
       let data = {};
-      data["children"] = node.children.map(child => filterUtil(child))
-      if (data["children"].join("") === "") return ""
+      data["children"] = {}
+      node.children.forEach(child => data["children"][child.id] = filterUtil(child))
+      if (Object.values(data["children"]).join("") === "") return ""
       return data
     } else {
       if (node.inputs) {
@@ -35,6 +36,8 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
     data["name"] = archetype.tree["name"];
     data["rmType"] = archetype.tree.rmType;
     data["ln"] = ln;
+    data["patient"] = {}
+    archetype.patient.forEach(p => data["patient"][p.id] = p)
     data["data"] = filterUtil(archetype.tree);
     return data;
   }
@@ -61,18 +64,18 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
           return res.json();
         })
         .then(async (res) => {
-          res.tree.children = [{ 
-            id: "patient_name",
-            name: "Patient Name",
-            value: ""
-          }, ...res.tree.children]
-
-          res.tree.children = [{ 
-            id: "patient_id",
-            name: "Patient ID",
-            value: ""
-          }, ...res.tree.children]
-          
+          res["patient"] = [
+            {
+              id: "patient_id",
+              name: "Patient ID",
+              value: ""
+            },
+            {
+              id: "patient_name",
+              name: "Patient Name",
+              value: ""
+            }
+          ]
           await setArchetype(res);
           setArchetypeLoaded(true);
         })
@@ -105,9 +108,8 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
           </div>
 
           <h1>&nbsp;</h1>
-          {archetype.tree.children.map((child) => {
-              return <InputComp key={child.id} ln={ln} child={child} />
-          })}
+          {archetype.patient.map(child => <InputComp key={child.id} ln={ln} child={child} />)}
+          {archetype.tree.children.map(child => <InputComp key={child.id} ln={ln} child={child} />)}
         </div>
         <div className="col-sm-12 text-center">
         <button
