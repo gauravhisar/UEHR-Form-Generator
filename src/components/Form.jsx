@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import InputComp from "./InputComp";
 import {LangSelector} from "./Selector";
 
@@ -8,6 +8,7 @@ import {LangSelector} from "./Selector";
 export default function Form({archetype, setArchetype, archetypeLoaded, setArchetypeLoaded}) {
   const [ln, setLanguage] = useState("en")
   const {rmType, archetypeId} = useParams()
+  const navigate = useNavigate()
 
   function filterUtil(node){
     if (node.children !== undefined){
@@ -40,6 +41,8 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
 
   async function handleFileSubmission(e) {
     const response = await axios.post("http://localhost:5001/",filter(archetype));
+    alert("Form Submitted Successfully")
+    navigate("/")
   }
 
   function onLanguageChangeHandler(e) {
