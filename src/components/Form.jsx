@@ -10,24 +10,68 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
   const {rmType, archetypeId} = useParams()
   const navigate = useNavigate()
 
+  function getSnomedData(node) {
+  let snomedData = {};
+  // console.log(" Find Term Bindings for this node -,", node)
+  
+  axios.request({
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: 'http://localhost:8080/MAIN/concepts',
+    headers: { 
+      'accept': 'application/json', 
+      'Accept-Language': 'en',
+    },
+    params: {
+      term: node.name ? node.name : node.id,
+      offset:0 ,
+      limit: 1
+    }
+  })
+  .then((response) => {
+    console.log(JSON.stringify(response.data));
+    snomedData = response.data.items.length !== 0 ? response.data.items[0] : {}
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+  return snomedData;
+  }
+
+function getTermBindings(node) {
+  if (node.termBindings && node.termBindings["SNOMED-CT"]) {
+      return node.termBindings
+  }
+  let termBindings = {};
+  let snomedData = getSnomedData(node)
+  if (Object.keys(snomedData).length !== 0) {
+    termBindings["SNOMED-CT"] = snomedData
+  }
+  return termBindings;
+
+}
+
   function filterUtil(node){
+    let data = {};
     if (node.children !== undefined){
-      let data = {};
       data["children"] = {}
       node.children.forEach(child => data["children"][child.id] = filterUtil(child))
       if (Object.values(data["children"]).join("") === "") return ""
-      return data
     } else {
-      if (node.inputs) {
-        let data = {}
-        data["inputs"] = node.inputs.map(input => input.value)
-        if (data["inputs"].join("") === "") return "" 
-        return data
+      let termBindings = {};
+      termBindings = getTermBindings(node)
+      if (Object.keys(termBindings).length !== 0) {
+        data["termBindings"] = termBindings
       }
-      else {
-        return node.value === undefined ? "" : node.value
-      }
+        if (node.inputs) {
+          data["inputs"] = node.inputs.map(input => input.value)
+          if (data["inputs"].join("") === "") return "" 
+        }
+        else {
+          data.value =  node.value === undefined ? "" : node.value
+        }
     }
+    return data
   }
   
   function filter(archetype) {
