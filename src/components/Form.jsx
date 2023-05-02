@@ -11,58 +11,63 @@ export default function Form({archetype, setArchetype, archetypeLoaded, setArche
   const navigate = useNavigate()
 
   function getSnomedData(node) {
-  let snomedData = {};
-  // console.log(" Find Term Bindings for this node -,", node)
-  
-  axios.request({
-    method: 'get',
-    maxBodyLength: Infinity,
-    url: 'http://localhost:8080/MAIN/concepts',
-    headers: { 
-      'accept': 'application/json', 
-      'Accept-Language': 'en',
-    },
-    params: {
-      term: node.name ? node.name : node.id,
-      offset:0 ,
-      limit: 1
-    }
-  })
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
-    snomedData = response.data.items.length !== 0 ? response.data.items[0] : {}
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-  return snomedData;
-  }
-
-function getTermBindings(node) {
-  if (node.termBindings && node.termBindings["SNOMED-CT"]) {
-      return node.termBindings
-  }
-  let termBindings = {};
-  let snomedData = getSnomedData(node)
-  if (Object.keys(snomedData).length !== 0) {
-    termBindings["SNOMED-CT"] = snomedData
-  }
-  return termBindings;
-
-}
-
-  function filterUtil(node){
-    let data = {};
-    if (node.children !== undefined){
-      data["children"] = {}
-      node.children.forEach(child => data["children"][child.id] = filterUtil(child))
-      if (Object.values(data["children"]).join("") === "") return ""
-    } else {
-      let termBindings = {};
-      termBindings = getTermBindings(node)
-      if (Object.keys(termBindings).length !== 0) {
-        data["termBindings"] = termBindings
+    return axios.request({
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'http://localhost/snomed/MAIN/concepts',
+      headers: { 
+        'accept': 'application/json', 
+        'Accept-Language': 'en',
+      },
+      params: {
+        term: node.name ? node.name : node.id,
+        offset:0 ,
+        limit: 1
       }
+    })
+    .then((response) => {
+      // console.log(JSON.stringify(response.data));
+      return response.data.items.length !== 0 ? response.data.items[0] : {}
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    }
+
+  function getTermBindings(node) {
+  if (node.termBindings && node.termBindings["SNOMED-CT"]) {
+      return Promise.resolve(node.termBindings)
+  }
+  return getSnomedData(node)
+  .then(snomedData => {
+    let termBindings = {};
+    if (Object.keys(snomedData).length !== 0) {
+      termBindings["SNOMED-CT"] = snomedData.conceptId;
+    }
+    return termBindings;
+  }) 
+  }
+    
+  function filterUtil(node){
+    if (node.children !== undefined){
+      return Promise.all(node.children.map(child => filterUtil(child)))
+      .then((childrenData) => {
+        let data = {}
+        data["children"] = {}
+        for(let i=0;i<childrenData.length;i++){
+          data["children"][node.children[i].id] = childrenData[i]
+        }
+        if (Object.values(data["children"]).join("") === "") return ""
+        return data
+      })
+    } else {
+
+      return getTermBindings(node)
+      .then(termBindings => {
+        let data = {};
+        if (Object.keys(termBindings).length !== 0) {
+          data["termBindings"] = termBindings
+        }
         if (node.inputs) {
           data["inputs"] = node.inputs.map(input => input.value)
           if (data["inputs"].join("") === "") return "" 
@@ -70,26 +75,32 @@ function getTermBindings(node) {
         else {
           data.value =  node.value === undefined ? "" : node.value
         }
+        return data
+      })
     }
-    return data
   }
   
   function filter(archetype) {
-    const data = {};
-    data["archetypeId"] = archetype.tree.id;
-    data["name"] = archetype.tree["name"];
-    data["rmType"] = archetype.tree.rmType;
-    data["ln"] = ln;
+    let data = {}
     data["patient"] = {}
     archetype.patient.forEach(p => data["patient"][p.id] = p)
-    data["data"] = filterUtil(archetype.tree);
-    return data;
+    return filterUtil(archetype.tree).then(filteredTree => {
+      data["archetypeId"] = archetype.tree.id;
+      data["name"] = archetype.tree["name"];
+      data["rmType"] = archetype.tree.rmType;
+      data["ln"] = ln;
+      data["data"] = filteredTree
+      console.log(filteredTree)
+      return data;
+  })
   }
 
-  async function handleFileSubmission(e) {
-    const response = await axios.post("http://localhost:5001/",filter(archetype));
-    alert("Form Submitted Successfully")
-    navigate("/")
+  function handleFileSubmission(e) {
+    filter(archetype).then((data) => {
+      axios.post("http://localhost:5001/", data)
+      alert("Form Submitted Successfully")
+      navigate("/")
+    })
   }
 
   function onLanguageChangeHandler(e) {
