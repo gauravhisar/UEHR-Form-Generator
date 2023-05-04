@@ -1,8 +1,9 @@
-# EHR_Form_Generator
+# Usability in EHR (UEHR)
 
-#### Installation Manual 
-## Project Name - Usability in EHR (UEHR)
+EHR Form Generator generates dynamic multilingual clinical forms which is easily customizable. Submitted data is stored inside MongoDB. It also provides SNOMED-CT terminology binding with the help of Snowstorm API provided by SNOMED-CT itself.
 
+
+## Installation Manual
 Pre-requisites: 
 
 1.	Java 11 or above
@@ -47,4 +48,3 @@ https://github.com/gauravhisar/EHR_Form_Generator
 
 	Data is saved inside MongoDB which is visible in MongoDB compass.
 	To move further with the code, fork the GitHub repository into your own GitHub repository and do the changes as necessary
-![image](https://user-images.githubusercontent.com/56959589/236198276-d8ee7e94-6cc1-41d0-9b29-90e65ec53e65.png)
